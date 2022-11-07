@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>背包问题 - Kurisu&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Kurisu&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Kurisu&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="什么是背包问题背包问题（Knapsack problem）是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。问题的名称来源于如何选择最合适的物品放置于给定背包中，背包的空间有限，但我们需要最大化背包内所装物品的价值。背包问题通常出现在资源分配中，决策者必须分别从一组不可分割的项目或任务中进行选择，而这"><meta property="og:type" content="blog"><meta property="og:title" content="背包问题"><meta property="og:url" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"><meta property="og:site_name" content="Kurisu&#039;s Blog"><meta property="og:description" content="什么是背包问题背包问题（Knapsack problem）是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。问题的名称来源于如何选择最合适的物品放置于给定背包中，背包的空间有限，但我们需要最大化背包内所装物品的价值。背包问题通常出现在资源分配中，决策者必须分别从一组不可分割的项目或任务中进行选择，而这"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210117171307407.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210117175428387.jpg"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103003361.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/2021011010304192.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103109140.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%9810.jpg"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/2021011010314055.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/202101101032124.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103244701.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210118163425129.jpg"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103244701.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103614769.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210126104510106.jpg"><meta property="og:image" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210729234011.png"><meta property="article:published_time" content="2022-10-31T01:36:17.000Z"><meta property="article:modified_time" content="2022-11-04T02:16:40.390Z"><meta property="article:author" content="Kurisu"><meta property="article:tag" content="动态规划"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210117171307407.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"},"headline":"背包问题","image":["https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210117171307407.png","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210117175428387.jpg","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103003361.png","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/2021011010304192.png","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103109140.png","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%9810.jpg","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/2021011010314055.png","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/202101101032124.png","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103244701.png","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210118163425129.jpg","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103244701.png","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103614769.png","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210126104510106.jpg","https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210729234011.png"],"datePublished":"2022-10-31T01:36:17.000Z","dateModified":"2022-11-04T02:16:40.390Z","author":{"@type":"Person","name":"Kurisu"},"publisher":{"@type":"Organization","name":"Kurisu's Blog","logo":{"@type":"ImageObject","url":"https://mrcq.github.io/img/logo.svg"}},"description":"什么是背包问题背包问题（Knapsack problem）是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。问题的名称来源于如何选择最合适的物品放置于给定背包中，背包的空间有限，但我们需要最大化背包内所装物品的价值。背包问题通常出现在资源分配中，决策者必须分别从一组不可分割的项目或任务中进行选择，而这"}</script><link rel="canonical" href="https://mrcq.github.io/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Serif Simplified Chinese:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?ed68212360e83c07d191372605274f6e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><meta name="msvalidate.01" content="D5E963705D472839D42E0AC1C65D96AB"><script src="https://www.googletagmanager.com/gtag/js?id=G-X1YWL675NS" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-X1YWL675NS');</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">时间轴</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal"><i class="fas fa-angle-double-right"></i>背包问题</h1><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><i class="far fa-calendar-alt"> </i><time dateTime="2022-10-31T01:36:17.000Z" title="2022-10-31T01:36:17.000Z">2022-10-31</time></span><span class="level-item is-hidden-mobile"><i class="far fa-calendar-check"> </i><time dateTime="2022-11-04T02:16:40.390Z" title="2022-11-04T02:16:40.390Z">2022-11-04</time></span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a><span> / </span><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%AE%97%E6%B3%95/">算法</a></span><span class="level-item">25 分钟读完 (大约3732个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><div class="content"><h2 id="什么是背包问题"><a href="#什么是背包问题" class="headerlink" title="什么是背包问题"></a>什么是背包问题</h2><p>背包问题（Knapsack problem）是一种组合优化的NP完全问题。问题可以描述为：给定一组物品，每种物品都有自己的重量和价格，在限定的总重量内，我们如何选择，才能使得物品的总价格最高。问题的名称来源于如何选择最合适的物品放置于给定背包中，背包的空间有限，但我们需要最大化背包内所装物品的价值。背包问题通常出现在资源分配中，决策者必须分别从一组不可分割的项目或任务中进行选择，而这些项目又有时间或预算的限制。<span id="more"></span></p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210117171307407.png"></p>
+<h2 id="01背包"><a href="#01背包" class="headerlink" title="01背包"></a>01背包</h2><h3 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h3><p>有n件物品和一个最多能背重量为w 的背包。第i件物品的重量是weight[i]，得到的价值是value[i] 。<strong>每件物品只能用一次</strong>，求解将哪些物品装入背包里物品价值总和最大。</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210117175428387.jpg"></p>
+<h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><h4 id="分析题目"><a href="#分析题目" class="headerlink" title="分析题目"></a>分析题目</h4><ul>
+<li><p>暴力解法：每一件物品其实只有两个状态，取或者不取，所以可以使用回溯法搜索出所有的情况，那么时间复杂度就是$o(2^n)$，这里的n表示物品数量。</p>
+</li>
+<li><p>由题目可知</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>重量</th>
+<th>价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物品0</td>
+<td>1</td>
+<td>15</td>
+</tr>
+<tr>
+<td>物品1</td>
+<td>3</td>
+<td>20</td>
+</tr>
+<tr>
+<td>物品2</td>
+<td>4</td>
+<td>30</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="模板（二维dp数组）"><a href="#模板（二维dp数组）" class="headerlink" title="模板（二维dp数组）"></a>模板（二维dp数组）</h4><ol>
+<li><p>确定dp数组以及下标的含义</p>
+<p>对于背包问题，有一种写法， 是使用二维数组，即<strong>dp[i][j] 表示从下标为[0-i]的物品里任意取，放进容量为j的背包，价值总和最大是多少</strong>。</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103003361.png"></p>
+</li>
+<li><p>确定递推公式</p>
+<p>dp[i][j]的含义：从下标为[0-i]的物品里任意取，放进容量为j的背包，价值总和最大是多少。<br>那么可以有两个方向推出来dp[i][j]<br><strong>不放物品i</strong>：由dp[i - 1][j]推出，即背包容量为j，里面不放物品i的最大价值，此时dp[i][j]就是dp[i - 1][j]。(其实就是当物品i的重量大于背包j的重量时，物品i无法放进背包中，所以被背包内的价值依然和前面相同。)<br><strong>放物品i</strong>：由dp[i - 1][j - weight[i]]推出，dp[i - 1][j - weight[i]] 为背包容量为j - weight[i]的时候不放物品i的最大价值，那么dp[i - 1][j - weight[i]] + value[i] （物品i的价值），就是背包放物品i得到的最大价值<br><strong>所以递归公式： dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);</strong></p>
+</li>
+<li><p>dp数组如何初始化</p>
+<p>关于初始化，一定要和dp数组的定义吻合，否则到递推公式的时候就会越来越乱。<br>首先从dp[i][j]的定义出发，如果背包容量j为0的话，即dp[i][0]，无论是选取哪些物品，背包价值总和一定为0。如图：</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/2021011010304192.png"></p>
+<p>再看其他情况。</p>
+<p>状态转移方程 dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]); 可以看出i 是由 i-1 推导出来，那么i为0的时候就一定要初始化。</p>
+<p>dp[0][j]，即：i为0，存放编号0的物品的时候，各个容量的背包所能存放的最大价值。</p>
+<p>那么很明显当 j &lt; weight[0]的时候，dp[0][j] 应该是 0，因为背包容量比编号0的物品重量还小。</p>
+<p>当j &gt;= weight[0]时，dp[0][j] 应该是value[0]，因为背包容量放足够放编号0物品。</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103109140.png"></p>
+<p>dp[0][j] 和 dp[i][0] 都已经初始化了，那么其他下标应该初始化多少呢？</p>
+<p>其实从递归公式： dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]); 可以看出dp[i][j] 是由左上方数值推导出来了，那么 其他下标初始为什么数值都可以，因为都会被覆盖。</p>
+<p>但只不过一开始就统一把dp数组统一初始为0，更方便一些。</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%9810.jpg"></p>
+</li>
+<li><p>确定遍历顺序</p>
+<p>在如下图中，可以看出，有两个遍历的维度：物品与背包重量</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/2021011010314055.png"></p>
+<p>先遍历物品或先遍历背包重量都可以，但先遍历物品好理解。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先遍历物品</span></span><br><span class="line"><span class="comment">// weight数组的大小 就是物品个数</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; weight.<span class="built_in">size</span>(); i++) &#123; <span class="comment">// 遍历物品</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt;= bagweight; j++) &#123; <span class="comment">// 遍历背包容量</span></span><br><span class="line">        <span class="keyword">if</span> (j &lt; weight[i]) dp[i][j] = dp[i - <span class="number">1</span>][j]; </span><br><span class="line">        <span class="keyword">else</span> dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - weight[i]] + value[i]);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/202101101032124.png" alt="动态规划-背包问题5"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先遍历背包</span></span><br><span class="line"><span class="comment">// weight数组的大小 就是物品个数</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt;= bagweight; j++) &#123; <span class="comment">// 遍历背包容量</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">1</span>; i &lt; weight.<span class="built_in">size</span>(); i++) &#123; <span class="comment">// 遍历物品</span></span><br><span class="line">        <span class="keyword">if</span> (j &lt; weight[i]) dp[i][j] = dp[i - <span class="number">1</span>][j];</span><br><span class="line">        <span class="keyword">else</span> dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - weight[i]] + value[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103244701.png"></p>
+<p><strong>虽然两个for循环遍历的次序不同，但是dp[i][j]所需要的数据就是左上角，根本不影响dp[i][j]公式的推导</strong></p>
+</li>
+<li><p>举例推导dp数组</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210118163425129.jpg" alt="动态规划-背包问题4"></p>
+</li>
+</ol>
+<h4 id="模板（一维dp数组-滚动数组）"><a href="#模板（一维dp数组-滚动数组）" class="headerlink" title="模板（一维dp数组/滚动数组）"></a>模板（一维dp数组/滚动数组）</h4><blockquote>
+<p>对于背包问题其实状态都是可以压缩的。</p>
+<p>在使用二维数组的时候，递推公式：dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);</p>
+<p><strong>其实可以发现如果把dp[i - 1]那一层拷贝到dp[i]上，表达式完全可以是：dp[i][j] = max(dp[i][j], dp[i][j - weight[i]] + value[i]);</strong></p>
+<p><strong>与其把dp[i - 1]这一层拷贝到dp[i]上，不如只用一个一维数组了</strong>，只用dp[j]（一维数组，也可以理解是一个滚动数组）。</p>
+<p>这就是滚动数组的由来，需要<strong>满足的条件是上一层可以重复利用，直接拷贝到当前层</strong>。</p>
+</blockquote>
+<ol>
+<li><p>确定dp数组的定义</p>
+<p>在一维dp数组中，dp[j]表示：容量为j的背包，所背的物品价值可以最大为dp[j]。</p>
+</li>
+<li><p>一维dp数组的递推公式</p>
+<p>dp[j]可以通过dp[j - weight[i]]推导出来，dp[j - weight[i]]表示容量为j - weight[i]的背包所背的最大价值。</p>
+<p>dp[j - weight[i]] + value[i] 表示 容量为 j - 物品i重量 的背包 加上 物品i的价值。（也就是容量为j的背包，放入物品i了之后的价值即：dp[j]）</p>
+<p>此时dp[j]有两个选择，一个是取自己dp[j] 相当于 二维dp数组中的dp[i-1][j]，即不放物品i，一个是取dp[j - weight[i]] + value[i]</p>
+<p>所以递推公式为：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i]);</span><br></pre></td></tr></table></figure></li>
+<li><p>一维dp数组如何初始化</p>
+<p>dp[j]表示：容量为j的背包，所背的物品价值可以最大为dp[j]，那么dp[0]就应该是0，因为背包容量为0所背的物品的最大价值就是0。</p>
+<p>那么dp数组除了下标0的位置，初始为0，其他下标应该初始化多少呢？</p>
+<p>看一下递归公式：dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);</p>
+<p>dp数组在推导的时候一定是取价值最大的数，如果题目给的价值都是正整数那么非0下标都初始化为0就可以了。</p>
+</li>
+<li><p>一维dp数组遍历顺序</p>
+<p>代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; weight.<span class="built_in">size</span>(); i++) &#123; <span class="comment">// 遍历物品</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j = bagWeight; j &gt;= weight[i]; j--) &#123; <span class="comment">// 遍历背包容量</span></span><br><span class="line">        dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i]);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>这里和二维dp的写法中，遍历背包的顺序是不一样的</strong>，二维dp遍历的时候，背包容量是从小到大，而一维dp遍历的时候，背包是从大到小。因为<strong>倒序遍历是为了保证物品i只被放入一次！</strong>。但如果一旦正序遍历了，那么物品0就会被重复加入多次。</p>
+<p><strong>一维dp本质上是复用数组为上一层数组（i-1）原理上还是二维dp</strong>，根据递推公式：dp[j] = max(dp[j], dp[j - weight[i]] + value[i]);赋值当前值要参考dp[j - weight[i]]，即上一层的数据，<strong>如果从前往后遍历，上层的数据会被覆盖</strong>，导致背包多次放入，<strong>从后往前遍历则当前元素前的元素仍然和上一层的值相同。</strong></p>
+<p>因为一维dp是复用上一层数据，所以<strong>不可以先遍历背包容量嵌套遍历物品</strong>，如果遍历背包容量放在上一层，那么每个dp[j]就只会放入一个物品，即：背包里只放入了一个物品。</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103244701.png"></p>
+</li>
+<li><p>举例推导dp数组</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210110103614769.png"></p>
+</li>
+</ol>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><h4 id="python（二维dp数组）"><a href="#python（二维dp数组）" class="headerlink" title="python（二维dp数组）"></a>python（二维dp数组）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_2_wei_bag_problem</span>(<span class="params">bag_size, weight, value</span>) -&gt; <span class="built_in">int</span>: </span><br><span class="line">	rows, cols = <span class="built_in">len</span>(weight), bag_size + <span class="number">1</span></span><br><span class="line">	dp = [[<span class="number">0</span> <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(cols)] <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(rows)]</span><br><span class="line">    </span><br><span class="line">	<span class="comment"># 初始化dp数组. </span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(rows): </span><br><span class="line">		dp[i][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">	first_item_weight, first_item_value = weight[<span class="number">0</span>], value[<span class="number">0</span>]</span><br><span class="line">	<span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, cols): 	</span><br><span class="line">		<span class="keyword">if</span> first_item_weight &lt;= j: </span><br><span class="line">			dp[<span class="number">0</span>][j] = first_item_value</span><br><span class="line"></span><br><span class="line">	<span class="comment"># 更新dp数组: 先遍历物品, 再遍历背包. </span></span><br><span class="line">	<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="built_in">len</span>(weight)): </span><br><span class="line">		cur_weight, cur_val = weight[i], value[i]</span><br><span class="line">		<span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, cols): </span><br><span class="line">			<span class="keyword">if</span> cur_weight &gt; j: <span class="comment"># 说明背包装不下当前物品. </span></span><br><span class="line">				dp[i][j] = dp[i - <span class="number">1</span>][j] <span class="comment"># 所以不装当前物品. </span></span><br><span class="line">			<span class="keyword">else</span>: </span><br><span class="line">				<span class="comment"># 定义dp数组: dp[i][j] 前i个物品里，放进容量为j的背包，价值总和最大是多少。</span></span><br><span class="line">				dp[i][j] = <span class="built_in">max</span>(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - cur_weight]+ cur_val)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">print</span>(dp)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>: </span><br><span class="line">	bag_size = <span class="number">4</span></span><br><span class="line">	weight = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">	value = [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line">	test_2_wei_bag_problem(bag_size, weight, value)</span><br></pre></td></tr></table></figure>
+
+<h4 id="python（一维dp数组-滚动数组）"><a href="#python（一维dp数组-滚动数组）" class="headerlink" title="python（一维dp数组/滚动数组）"></a>python（一维dp数组/滚动数组）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_1_wei_bag_problem</span>():</span><br><span class="line">    weight = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">    value = [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line">    bag_weight = <span class="number">4</span></span><br><span class="line">    <span class="comment"># 初始化: 全为0</span></span><br><span class="line">    dp = [<span class="number">0</span>] * (bag_weight + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 先遍历物品, 再遍历背包容量</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(weight)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(bag_weight, weight[i] - <span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            <span class="comment"># 递归公式</span></span><br><span class="line">            dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i])</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(dp)</span><br><span class="line"></span><br><span class="line">test_1_wei_bag_problem()</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="完全背包"><a href="#完全背包" class="headerlink" title="完全背包"></a>完全背包</h2><h3 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h3><p>有N件物品和一个最多能背重量为W的背包。第i件物品的重量是weight[i]，得到的价值是value[i] 。<strong>每件物品都有无限个（也就是可以放入背包多次）</strong>，求解将哪些物品装入背包里物品价值总和最大。</p>
+<blockquote>
+<p><strong>完全背包和01背包问题唯一不同的地方就是，每种物品有无限件</strong>。</p>
+</blockquote>
+<p>背包最大重量为4。</p>
+<p>物品为：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>重量</th>
+<th>价值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物品0</td>
+<td>1</td>
+<td>15</td>
+</tr>
+<tr>
+<td>物品1</td>
+<td>3</td>
+<td>20</td>
+</tr>
+<tr>
+<td>物品2</td>
+<td>4</td>
+<td>30</td>
+</tr>
+</tbody></table>
+<p><strong>每件商品都有无限个！</strong></p>
+<p>问背包能背的物品最大价值是多少？</p>
+<h3 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h3><h4 id="遍历顺序"><a href="#遍历顺序" class="headerlink" title="遍历顺序"></a>遍历顺序</h4><p>01背包和完全背包唯一不同就是体现在遍历顺序上，01背包内嵌的循环是从大到小遍历，为了保证每个物品仅被添加一次。而完全背包的物品是可以添加多次的，所以要从小到大去遍历，即：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先遍历物品，再遍历背包</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; weight.<span class="built_in">size</span>(); i++) &#123; <span class="comment">// 遍历物品</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> j = weight[i]; j &lt;= bagWeight ; j++) &#123; <span class="comment">// 遍历背包容量</span></span><br><span class="line">        dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i]);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>dp状态图如下：</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210126104510106.jpg"></p>
+<h3 id="for循环嵌套"><a href="#for循环嵌套" class="headerlink" title="for循环嵌套"></a>for循环嵌套</h3><p>01背包中二维dp数组的两个for遍历的先后循序是可以颠倒了，一维dp数组的两个for循环先后循序一定是先遍历物品，再遍历背包容量。</p>
+<p>在完全背包中，对于一维dp数组来说，其实两个for循环嵌套顺序同样无所谓。</p>
+<p>因为dp[j] 是根据 下标j之前所对应的dp[j]计算出来的。 只要保证下标j之前的dp[j]都是经过计算的就可以了。</p>
+<p><img src="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/20210729234011.png"></p>
+<p>如图所示完全背包中，两个for循环的先后循序，都不影响计算dp[j]所需要的值（这个值就是下标j之前所对应的dp[j]）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 先遍历背包，再遍历物品</span></span><br><span class="line"><span class="keyword">for</span>(<span class="type">int</span> j = <span class="number">0</span>; j &lt;= bagWeight; j++) &#123; <span class="comment">// 遍历背包容量</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; weight.<span class="built_in">size</span>(); i++) &#123; <span class="comment">// 遍历物品</span></span><br><span class="line">        <span class="keyword">if</span> (j - weight[i] &gt;= <span class="number">0</span>) dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="python（一维dp数组-滚动数组）-1"><a href="#python（一维dp数组-滚动数组）-1" class="headerlink" title="python（一维dp数组/滚动数组）"></a>python（一维dp数组/滚动数组）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 先遍历物品，再遍历背包</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_complete_pack1</span>():</span><br><span class="line">    weight = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">    value = [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line">    bag_weight = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    dp = [<span class="number">0</span>]*(bag_weight + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(weight)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(weight[i], bag_weight + <span class="number">1</span>):</span><br><span class="line">            dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i])</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(dp[bag_weight])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 先遍历背包，再遍历物品</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_complete_pack2</span>():</span><br><span class="line">    weight = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">    value = [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line">    bag_weight = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    dp = [<span class="number">0</span>]*(bag_weight + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(bag_weight + <span class="number">1</span>):</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(weight)):</span><br><span class="line">            <span class="keyword">if</span> j &gt;= weight[i]: dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i])</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(dp[bag_weight])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    test_complete_pack1()</span><br><span class="line">    test_complete_pack2()</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="多重背包"><a href="#多重背包" class="headerlink" title="多重背包"></a>多重背包</h2><h3 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h3><p>有N种物品和一个容量为V 的背包。第i种物品最多有Mi件可用，每件耗费的空间是Ci ，价值是Wi 。求解将哪些物品装入背包可使这些物品的耗费的空间 总和不超过背包容量，且价值总和最大。</p>
+<blockquote>
+<p>多重背包和01背包是非常像的， 为什么和01背包像呢？</p>
+<p>每件物品最多有Mi件可用，把Mi件摊开，其实就是一个01背包问题了。</p>
+</blockquote>
+<p>背包最大重量为10。</p>
+<p>物品为：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>重量</th>
+<th>价值</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物品0</td>
+<td>1</td>
+<td>15</td>
+<td>2</td>
+</tr>
+<tr>
+<td>物品1</td>
+<td>3</td>
+<td>20</td>
+<td>3</td>
+</tr>
+<tr>
+<td>物品2</td>
+<td>4</td>
+<td>30</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<p>问背包能背的物品最大价值是多少？</p>
+<p>和如下情况有区别么？</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>重量</th>
+<th>价值</th>
+<th>数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>物品0</td>
+<td>1</td>
+<td>15</td>
+<td>1</td>
+</tr>
+<tr>
+<td>物品0</td>
+<td>1</td>
+<td>15</td>
+<td>1</td>
+</tr>
+<tr>
+<td>物品1</td>
+<td>3</td>
+<td>20</td>
+<td>1</td>
+</tr>
+<tr>
+<td>物品1</td>
+<td>3</td>
+<td>20</td>
+<td>1</td>
+</tr>
+<tr>
+<td>物品1</td>
+<td>3</td>
+<td>20</td>
+<td>1</td>
+</tr>
+<tr>
+<td>物品2</td>
+<td>4</td>
+<td>30</td>
+<td>1</td>
+</tr>
+<tr>
+<td>物品2</td>
+<td>4</td>
+<td>30</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<p>毫无区别，这就转成了一个01背包问题了，且每个物品只用一次。</p>
+<h3 id="python"><a href="#python" class="headerlink" title="python"></a>python</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">test_multi_pack1</span>():</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;版本一：改变物品数量为01背包格式&#x27;&#x27;&#x27;</span></span><br><span class="line">    weight = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">    value = [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line">    nums = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>]</span><br><span class="line">    bag_weight = <span class="number">10</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(nums)):</span><br><span class="line">        <span class="comment"># 将物品展开数量为1</span></span><br><span class="line">        <span class="keyword">while</span> nums[i] &gt; <span class="number">1</span>:</span><br><span class="line">            weight.append(weight[i])</span><br><span class="line">            value.append(value[i])</span><br><span class="line">            nums[i] -= <span class="number">1</span></span><br><span class="line">    </span><br><span class="line">    dp = [<span class="number">0</span>]*(bag_weight + <span class="number">1</span>)</span><br><span class="line">    <span class="comment"># 遍历物品</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(weight)):</span><br><span class="line">        <span class="comment"># 遍历背包</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(bag_weight, weight[i] - <span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            dp[j] = <span class="built_in">max</span>(dp[j], dp[j - weight[i]] + value[i])</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>, dp)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">test_multi_pack2</span>():</span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;版本：改变遍历个数&#x27;&#x27;&#x27;</span></span><br><span class="line">    weight = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">    value = [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>]</span><br><span class="line">    nums = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>]</span><br><span class="line">    bag_weight = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">    dp = [<span class="number">0</span>]*(bag_weight + <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(weight)):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(bag_weight, weight[i] - <span class="number">1</span>, -<span class="number">1</span>):</span><br><span class="line">            <span class="comment"># 以上是01背包，加上遍历个数</span></span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, nums[i] + <span class="number">1</span>):</span><br><span class="line">                <span class="keyword">if</span> j - k*weight[i] &gt;= <span class="number">0</span>:</span><br><span class="line">                    dp[j] = <span class="built_in">max</span>(dp[j], dp[j - k*weight[i]] + k*value[i])</span><br><span class="line"></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot; &quot;</span>.join(<span class="built_in">map</span>(<span class="built_in">str</span>, dp)))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    test_multi_pack1()</span><br><span class="line">    test_multi_pack2()</span><br></pre></td></tr></table></figure>
+
+</div><div class="article-licensing box"><div class="licensing-title"><p>背包问题</p><p><a href="https://mrcq.github.io/2022/10/31/算法/背包问题/">https://mrcq.github.io/2022/10/31/算法/背包问题/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Kurisu</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-10-31</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-11-04</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><hr style="height:1px;margin:1rem 0"><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/10/31/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">HTTP基本概念</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/10/31/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E%E9%80%9A%E8%AF%86%E8%AF%BE/%E8%B4%A7%E5%B8%81%E7%90%86%E8%AE%BA/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA/"><span class="level-item">金融市场</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.png" alt="Kurisu"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Kurisu</p><p class="is-size-6 is-block">水滴石穿，聚沙成塔</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">43</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">13</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/mrcq" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/mrcq"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#什么是背包问题"><span class="level-left"><span class="level-item">1</span><span class="level-item">什么是背包问题</span></span></a></li><li><a class="level is-mobile" href="#01背包"><span class="level-left"><span class="level-item">2</span><span class="level-item">01背包</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#题目描述"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">题目描述</span></span></a></li><li><a class="level is-mobile" href="#思路"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">思路</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#分析题目"><span class="level-left"><span class="level-item">2.2.1</span><span class="level-item">分析题目</span></span></a></li><li><a class="level is-mobile" href="#模板（二维dp数组）"><span class="level-left"><span class="level-item">2.2.2</span><span class="level-item">模板（二维dp数组）</span></span></a></li><li><a class="level is-mobile" href="#模板（一维dp数组-滚动数组）"><span class="level-left"><span class="level-item">2.2.3</span><span class="level-item">模板（一维dp数组/滚动数组）</span></span></a></li></ul></li><li><a class="level is-mobile" href="#代码"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">代码</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#python（二维dp数组）"><span class="level-left"><span class="level-item">2.3.1</span><span class="level-item">python（二维dp数组）</span></span></a></li><li><a class="level is-mobile" href="#python（一维dp数组-滚动数组）"><span class="level-left"><span class="level-item">2.3.2</span><span class="level-item">python（一维dp数组/滚动数组）</span></span></a></li></ul></li></ul></li><li><a class="level is-mobile" href="#完全背包"><span class="level-left"><span class="level-item">3</span><span class="level-item">完全背包</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#题目描述-1"><span class="level-left"><span class="level-item">3.1</span><span class="level-item">题目描述</span></span></a></li><li><a class="level is-mobile" href="#思路-1"><span class="level-left"><span class="level-item">3.2</span><span class="level-item">思路</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#遍历顺序"><span class="level-left"><span class="level-item">3.2.1</span><span class="level-item">遍历顺序</span></span></a></li></ul></li><li><a class="level is-mobile" href="#for循环嵌套"><span class="level-left"><span class="level-item">3.3</span><span class="level-item">for循环嵌套</span></span></a></li><li><a class="level is-mobile" href="#python（一维dp数组-滚动数组）-1"><span class="level-left"><span class="level-item">3.4</span><span class="level-item">python（一维dp数组/滚动数组）</span></span></a></li></ul></li><li><a class="level is-mobile" href="#多重背包"><span class="level-left"><span class="level-item">4</span><span class="level-item">多重背包</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#题目描述-2"><span class="level-left"><span class="level-item">4.1</span><span class="level-item">题目描述</span></span></a></li><li><a class="level is-mobile" href="#python"><span class="level-left"><span class="level-item">4.2</span><span class="level-item">python</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 Kurisu</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

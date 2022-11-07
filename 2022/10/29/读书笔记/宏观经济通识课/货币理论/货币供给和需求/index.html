@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>货币供给和需求 - Kurisu&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Kurisu&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Kurisu&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="货币供给的计算方法 货币的数量就叫货币供给。经济学家计算的货币是从我们身边带的纸币和硬币开始的，离身边最近的就是最活跃的货币，离我们最远的就是不活跃的货币。经济学家提出多种衡量货币供给的方法，我们先来看看一般西方经济学家计算货币供给的方法。"><meta property="og:type" content="blog"><meta property="og:title" content="货币供给和需求"><meta property="og:url" content="https://mrcq.github.io/2022/10/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E%E9%80%9A%E8%AF%86%E8%AF%BE/%E8%B4%A7%E5%B8%81%E7%90%86%E8%AE%BA/%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E5%92%8C%E9%9C%80%E6%B1%82/"><meta property="og:site_name" content="Kurisu&#039;s Blog"><meta property="og:description" content="货币供给的计算方法 货币的数量就叫货币供给。经济学家计算的货币是从我们身边带的纸币和硬币开始的，离身边最近的就是最活跃的货币，离我们最远的就是不活跃的货币。经济学家提出多种衡量货币供给的方法，我们先来看看一般西方经济学家计算货币供给的方法。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://mrcq.github.io/img/og_image.png"><meta property="article:published_time" content="2022-10-29T00:27:12.000Z"><meta property="article:modified_time" content="2022-11-04T02:16:40.386Z"><meta property="article:author" content="Kurisu"><meta property="article:tag" content="宏观经济通识课"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://mrcq.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mrcq.github.io/2022/10/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E%E9%80%9A%E8%AF%86%E8%AF%BE/%E8%B4%A7%E5%B8%81%E7%90%86%E8%AE%BA/%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E5%92%8C%E9%9C%80%E6%B1%82/"},"headline":"货币供给和需求","image":["https://mrcq.github.io/img/og_image.png"],"datePublished":"2022-10-29T00:27:12.000Z","dateModified":"2022-11-04T02:16:40.386Z","author":{"@type":"Person","name":"Kurisu"},"publisher":{"@type":"Organization","name":"Kurisu's Blog","logo":{"@type":"ImageObject","url":"https://mrcq.github.io/img/logo.svg"}},"description":"货币供给的计算方法 货币的数量就叫货币供给。经济学家计算的货币是从我们身边带的纸币和硬币开始的，离身边最近的就是最活跃的货币，离我们最远的就是不活跃的货币。经济学家提出多种衡量货币供给的方法，我们先来看看一般西方经济学家计算货币供给的方法。"}</script><link rel="canonical" href="https://mrcq.github.io/2022/10/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E%E9%80%9A%E8%AF%86%E8%AF%BE/%E8%B4%A7%E5%B8%81%E7%90%86%E8%AE%BA/%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E5%92%8C%E9%9C%80%E6%B1%82/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Serif Simplified Chinese:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?ed68212360e83c07d191372605274f6e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><meta name="msvalidate.01" content="D5E963705D472839D42E0AC1C65D96AB"><script src="https://www.googletagmanager.com/gtag/js?id=G-X1YWL675NS" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-X1YWL675NS');</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">时间轴</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal"><i class="fas fa-angle-double-right"></i>货币供给和需求</h1><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><i class="far fa-calendar-alt"> </i><time dateTime="2022-10-29T00:27:12.000Z" title="2022-10-29T00:27:12.000Z">2022-10-29</time></span><span class="level-item is-hidden-mobile"><i class="far fa-calendar-check"> </i><time dateTime="2022-11-04T02:16:40.386Z" title="2022-11-04T02:16:40.386Z">2022-11-04</time></span><span class="level-item"><a class="link-muted" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><span> / </span><a class="link-muted" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E7%BB%8F%E6%B5%8E%E7%90%86%E8%B4%A2/">经济理财</a></span><span class="level-item">9 分钟读完 (大约1379个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><div class="content"><h2 id="货币供给的计算方法"><a href="#货币供给的计算方法" class="headerlink" title="货币供给的计算方法"></a>货币供给的计算方法</h2><blockquote>
+<p>货币的数量就叫货币供给。经济学家计算的货币是从我们身边带的纸币和硬币开始的，离身边最近的就是最活跃的货币，离我们最远的就是不活跃的货币。经济学家提出多种衡量货币供给的方法，我们先来看看一般西方经济学家计算货币供给的方法。<span id="more"></span></p>
+</blockquote>
+<p>一般把货币供给分为三类，也就是三种官方的货币计算标准，M1、M2、M3。M就是Money的首字母。</p>
+<ol>
+<li><p>计算货币供给的第一种方法是M1，它是狭义的货币供给。</p>
+<p>M1=现金+活期存款</p>
+</li>
+<li><p>计算货币供给的第二种方法是M2，它是广义的货币供给。</p>
+<p>M2=M1+定期存款</p>
+</li>
+<li><p>计算货币供给的第三种方法是M3。</p>
+<p>M3=M2+其他金融机构的存款，所以M3是更广义的货币供给。</p>
+</li>
+</ol>
+<p>我国计算货币供给的方法，也有三种。</p>
+<ol>
+<li><p>流通中的货币，用M0来表示。现金是中国人民银行发行的钞票，就是通货。这是最活跃的货币，可以直接把它当钱来花。</p>
+<p>M0=现金（通货）</p>
+</li>
+<li><p>狭义货币供给，用M1表示。</p>
+<p>M1=M0+企业活期存款</p>
+</li>
+<li><p>广义货币供给，用M2表示。</p>
+<p>M2=M1+企业定期存款+居民储蓄存款+财政存款我们通常使用的是M2，这是广义的货币供给。</p>
+</li>
+</ol>
+<blockquote>
+<p>经济学家之所以要使用几种不同的计算货币供给方法，是因为仅仅根据一种方法不足以预测经济活动水平的变化。比如，为什么有时货币供给特别多，这是因为经济中出现赚钱的机会，人们就会把M2变成M1，把定期存款变成活期存款，把活期存款变成现金，然后直接买房或买股票；相反，如果经济遇冷时，大家都不花钱，现金就会变成M1，M1变成M2，最后变成存在银行里的钱，所以钱就感觉少了。我们在实际研究中以M1作为货币供给的定义。</p>
+</blockquote>
+<h2 id="货币需求"><a href="#货币需求" class="headerlink" title="货币需求"></a>货币需求</h2><blockquote>
+<p>那谁来决定货币供给的多与少呢？这由中央银行决定，因为钞票是央行发的，法定准备金是央行定的，公开市场业务是央行做的，央行控制着货币供给的总闸门。货币需求有流量和存量之分，<strong>人们每月得到的工资收入是一个流量，人们在手里或银行账户上所拥有的货币就是一个存量。我们讲的货币需求通常指的是存量，就是人们在某个时点愿意持有的货币量。</strong></p>
+</blockquote>
+<p>人们持有货币主要有三种需求：交易需求、预防需求、投机需求。</p>
+<p>货币的交易需求和预防需求与收入正相关，与利率负相关；货币的投机需求与收入的关系不大，与市场利率关系很大。利率越高，投机的需求越少；利率越低，投机的货币需求越多。</p>
+<h3 id="货币的流通速度"><a href="#货币的流通速度" class="headerlink" title="货币的流通速度"></a>货币的流通速度</h3><p>一国流通中客观上需要多少货币还取于货币的流通速度。什么叫货币的流通速度呢？就是1元货币一年周转多少次。货币周转次数越多，需要的货币量就越少，货币周转次数越少，需要的货币量就越多。</p>
+<p>1982年，美国的每1美元一年转6.7次。我国在1980年时每1元转2.06次，到1991年为1.13次。所以我国的货币需求量就比美国要多。所以，货币流通速度的高低，与货币需求有很密切的关系。</p>
+<h3 id="均衡利率"><a href="#均衡利率" class="headerlink" title="均衡利率"></a>均衡利率</h3><p>货币供给最终是由中央银行决定的。在货币政策不变时，货币供给量是一定的。货币需求由价格、GDP、利率三种因素决定。在既定的时点和既定的价格水平上，可以把GDP视为固定的，那么货币需求主要由利率决定。货币是一种存量，当供给的货币量等于需求的货币量时，货币供求就实现了平衡。均衡利率指的就是货币供求平衡时的利率。所以，<strong>利率的调整使货币供求实现了平衡，央行就是通过利率来调控宏观经济的</strong>。 </p>
+<h2 id="基础货币"><a href="#基础货币" class="headerlink" title="基础货币"></a>基础货币</h2><p>基础货币=通货+准备金</p>
+<blockquote>
+<p>通货就是流通领域的货币；准备金就是要交给中央银行的钱。放在你手里的钱都叫通货，放进中央银行的钱就变成了准备金。</p>
+</blockquote>
+<p>基础货币的定义是指能够派生出信用货币的货币，它主要由央行对商业银行的再贷款形成。基础货币必须是中央银行的货币。换句话说，<strong>基础货币就是中央银行发行的钞票</strong>。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>货币供给和需求</p><p><a href="https://mrcq.github.io/2022/10/29/读书笔记/宏观经济通识课/货币理论/货币供给和需求/">https://mrcq.github.io/2022/10/29/读书笔记/宏观经济通识课/货币理论/货币供给和需求/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Kurisu</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-10-29</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-11-04</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><hr style="height:1px;margin:1rem 0"><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E%E9%80%9A%E8%AF%86%E8%AF%BE/">宏观经济通识课 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/10/29/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">动态规划</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/10/28/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/%E5%8E%9F%E7%A0%81-%E5%8F%8D%E7%A0%81-%E8%A1%A5%E7%A0%81/"><span class="level-item">原码,反码,补码</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.png" alt="Kurisu"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Kurisu</p><p class="is-size-6 is-block">水滴石穿，聚沙成塔</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">43</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">13</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/mrcq" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/mrcq"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#货币供给的计算方法"><span class="level-left"><span class="level-item">1</span><span class="level-item">货币供给的计算方法</span></span></a></li><li><a class="level is-mobile" href="#货币需求"><span class="level-left"><span class="level-item">2</span><span class="level-item">货币需求</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#货币的流通速度"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">货币的流通速度</span></span></a></li><li><a class="level is-mobile" href="#均衡利率"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">均衡利率</span></span></a></li></ul></li><li><a class="level is-mobile" href="#基础货币"><span class="level-left"><span class="level-item">3</span><span class="level-item">基础货币</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 Kurisu</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

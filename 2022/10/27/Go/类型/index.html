@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>类型 - Kurisu&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Kurisu&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Kurisu&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="变量 Go 是静态类型语言，不能在运行期改变变量类型。  使用关键字 var 定义变量，自动初始化为零值。如果提供初始化值，可省略变量类型，由编译器自动推断。 123var x intvar f float32 &amp;#x3D; 1.6var s &amp;#x3D; &amp;quot;abc&amp;quot; 全局变量声明必须以 var 关键字开头，如果想要在外部包中使用全局变量的首字母必须大写。"><meta property="og:type" content="blog"><meta property="og:title" content="类型"><meta property="og:url" content="https://mrcq.github.io/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/"><meta property="og:site_name" content="Kurisu&#039;s Blog"><meta property="og:description" content="变量 Go 是静态类型语言，不能在运行期改变变量类型。  使用关键字 var 定义变量，自动初始化为零值。如果提供初始化值，可省略变量类型，由编译器自动推断。 123var x intvar f float32 &amp;#x3D; 1.6var s &amp;#x3D; &amp;quot;abc&amp;quot; 全局变量声明必须以 var 关键字开头，如果想要在外部包中使用全局变量的首字母必须大写。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://mrcq.github.io/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/image-20221027214906496.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/9145ac5758a792600481cd4a1a28e675_586x324.png"><meta property="article:published_time" content="2022-10-27T12:14:33.000Z"><meta property="article:modified_time" content="2022-11-04T02:16:40.381Z"><meta property="article:author" content="Kurisu"><meta property="article:tag" content="Go"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://mrcq.github.io/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/image-20221027214906496.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mrcq.github.io/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/"},"headline":"类型","image":["https://mrcq.github.io/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/image-20221027214906496.png","https://mrcq.github.io/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/9145ac5758a792600481cd4a1a28e675_586x324.png"],"datePublished":"2022-10-27T12:14:33.000Z","dateModified":"2022-11-04T02:16:40.381Z","author":{"@type":"Person","name":"Kurisu"},"publisher":{"@type":"Organization","name":"Kurisu's Blog","logo":{"@type":"ImageObject","url":"https://mrcq.github.io/img/logo.svg"}},"description":"变量 Go 是静态类型语言，不能在运行期改变变量类型。  使用关键字 var 定义变量，自动初始化为零值。如果提供初始化值，可省略变量类型，由编译器自动推断。 123var x intvar f float32 &#x3D; 1.6var s &#x3D; &quot;abc&quot; 全局变量声明必须以 var 关键字开头，如果想要在外部包中使用全局变量的首字母必须大写。"}</script><link rel="canonical" href="https://mrcq.github.io/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Serif Simplified Chinese:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?ed68212360e83c07d191372605274f6e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><meta name="msvalidate.01" content="D5E963705D472839D42E0AC1C65D96AB"><script src="https://www.googletagmanager.com/gtag/js?id=G-X1YWL675NS" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-X1YWL675NS');</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">时间轴</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal"><i class="fas fa-angle-double-right"></i>类型</h1><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><i class="far fa-calendar-alt"> </i><time dateTime="2022-10-27T12:14:33.000Z" title="2022-10-27T12:14:33.000Z">2022-10-27</time></span><span class="level-item is-hidden-mobile"><i class="far fa-calendar-check"> </i><time dateTime="2022-11-04T02:16:40.381Z" title="2022-11-04T02:16:40.381Z">2022-11-04</time></span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a><span> / </span><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><span> / </span><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/">Go</a></span><span class="level-item">16 分钟读完 (大约2407个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><div class="content"><h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><ul>
+<li><p>Go 是静态类型语言，不能在运行期改变变量类型。</p>
+</li>
+<li><p>使用关键字 var 定义变量，自动初始化为零值。如果提供初始化值，可省略变量类型，由编译器自动推断。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x <span class="type">int</span></span><br><span class="line"><span class="keyword">var</span> f <span class="type">float32</span> = <span class="number">1.6</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="string">&quot;abc&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>全局变量声明必须以 var 关键字开头，如果想要在外部包中使用全局变量的首字母必须大写。<span id="more"></span></p>
+</li>
+<li><p>在函数内部，可用更简略的 “:=” 方式定义变量。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="number">123</span> <span class="comment">// 注意检查，是定义新局部变量，还是修改全局变量。该方式容易造成错误。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>多变量赋值时，先计算所有相关值，然后再从左到右依次赋值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">data, i := [<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125;, <span class="number">0</span></span><br><span class="line">i, data[i] = <span class="number">2</span>, <span class="number">100</span> <span class="comment">// (i = 0) -&gt; (i = 2), (data[0] = 100)</span></span><br></pre></td></tr></table></figure></li>
+<li><p>特殊只写变量 “_”，用于忽略值占位。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">()</span></span> (<span class="type">int</span>, <span class="type">string</span>) &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span>, <span class="string">&quot;abc&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	_, s := test()</span><br><span class="line">	<span class="built_in">println</span>(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>编译器会将未使用的局部变量当做错误。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s <span class="type">string</span> <span class="comment">// 全局变量没问题。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	i := <span class="number">0</span> <span class="comment">// Error: i declared and not used。(可使用 &quot;_ = i&quot; 规避)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>注意重新赋值与定义新同名变量的区别。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">&quot;abc&quot;</span></span><br><span class="line">	<span class="built_in">println</span>(&amp;s)</span><br><span class="line"></span><br><span class="line">	s, y := <span class="string">&quot;hello&quot;</span>, <span class="number">20</span> <span class="comment">// 重新赋值: 与前 s 在同一层次的代码块中，且有新的变量被定义。</span></span><br><span class="line">	<span class="built_in">println</span>(&amp;s, y)      <span class="comment">// 通常函数多返回值 err 会被重复使⽤用。</span></span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line">		s, z := <span class="number">1000</span>, <span class="number">30</span> <span class="comment">// 定义新同名变量: 不在同一层次代码块。</span></span><br><span class="line">		<span class="built_in">println</span>(&amp;s, z)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><ul>
+<li><p>常量值必须是编译期可确定的数字、字符串、布尔值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x, y <span class="type">int</span> = <span class="number">1</span>, <span class="number">2</span>     <span class="comment">// 多常量初始化</span></span><br><span class="line"><span class="keyword">const</span> s = <span class="string">&quot;Hello, World!&quot;</span> <span class="comment">// 类型推断</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ( <span class="comment">// 常量组</span></span><br><span class="line">	a, b      = <span class="number">10</span>, <span class="number">100</span></span><br><span class="line">	c    <span class="type">bool</span> = <span class="literal">false</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> x = <span class="string">&quot;xxx&quot;</span> <span class="comment">// 未使用局部常量不会引发编译错误。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>在常量组中，如不提供类型和初始化值，那么视作与上一常量相同。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	s = <span class="string">&quot;abc&quot;</span></span><br><span class="line">	x <span class="comment">// x = &quot;abc&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>常量值还可以是 len、cap、unsafe.Sizeof 等编译期可确定结果的函数返回值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	a = <span class="string">&quot;abc&quot;</span></span><br><span class="line">	b = <span class="built_in">len</span>(a)</span><br><span class="line">	c = unsafe.Sizeof(b)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>如果常量类型足以存储初始化值，那么不会引发溢出错误。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	a <span class="type">byte</span> = <span class="number">100</span>  <span class="comment">// int to byte</span></span><br><span class="line">	b <span class="type">int</span>  = <span class="number">1e20</span> <span class="comment">// float64 to int, overflows</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>常量不能使用 “:=” 语法定义。</p>
+</li>
+</ul>
+<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><ul>
+<li><p>关键字 iota 定义常量组中从 0 开始按行计数的自增枚举值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	Sunday    = <span class="literal">iota</span> <span class="comment">// 0</span></span><br><span class="line">	Monday           <span class="comment">// 1，通常省略后续行表达式。</span></span><br><span class="line">	Tuesday          <span class="comment">// 2</span></span><br><span class="line">	Wednesday        <span class="comment">// 3</span></span><br><span class="line">	Thursday         <span class="comment">// 4</span></span><br><span class="line">	Friday           <span class="comment">// 5</span></span><br><span class="line">	Saturday         <span class="comment">// 6</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	_        = <span class="literal">iota</span>             <span class="comment">// iota = 0</span></span><br><span class="line">	KB <span class="type">int64</span> = <span class="number">1</span> &lt;&lt; (<span class="number">10</span> * <span class="literal">iota</span>) <span class="comment">// iota = 1</span></span><br><span class="line">	MB                          <span class="comment">// 与 KB 表达式相同，但 iota = 2</span></span><br><span class="line">	GB</span><br><span class="line">	TB</span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>在同一常量组中，可以提供多个 iota，它们各自增长。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	A, B = <span class="literal">iota</span>, <span class="literal">iota</span> &lt;&lt; <span class="number">10</span> <span class="comment">// 0, 0 &lt;&lt; 10</span></span><br><span class="line">	C, D                    <span class="comment">// 1, 1 &lt;&lt; 10</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>如果 iota 自增被打断，须显式恢复。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	A = <span class="literal">iota</span> <span class="comment">// 0</span></span><br><span class="line">	B        <span class="comment">// 1</span></span><br><span class="line">	C = <span class="string">&quot;c&quot;</span>  <span class="comment">// c</span></span><br><span class="line">	D        <span class="comment">// c，与上一⾏行相同。</span></span><br><span class="line">	E = <span class="literal">iota</span> <span class="comment">// 4，显式恢复。注意计数包含了 C、D 两行。</span></span><br><span class="line">	F        <span class="comment">// 5</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></li>
+<li><p>可通过自定义类型来实现枚举类型限制。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Color <span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">	Black Color = <span class="literal">iota</span></span><br><span class="line">	Red</span><br><span class="line">	Blue</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">(c Color)</span></span> &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	c := Black</span><br><span class="line">	test(c)</span><br><span class="line">	x := <span class="number">1</span></span><br><span class="line">	test(x) <span class="comment">// Error: cannot use x (type int) as type Color in function argument</span></span><br><span class="line">	test(<span class="number">1</span>) <span class="comment">// 常量会被编译器自动转换。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><ul>
+<li><p>更明确的数字类型命名，支持 Unicode，支持常用数据结构。</p>
+<p><img src="/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/image-20221027214906496.png"></p>
+</li>
+<li><p>支持八进制、十六进制，以及科学记数法。标准库 math 定义了各数字类型取值范围。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a, b, c, d := <span class="number">071</span>, <span class="number">0x1F</span>, <span class="number">1e9</span>, math.MinInt16</span><br></pre></td></tr></table></figure></li>
+<li><p>空指针值 nil，而非 C/C++ NULL。</p>
+</li>
+</ul>
+<h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><ul>
+<li><p>引用类型包括 slice、map 和 channel。它们有复杂的内部结构，除了申请内存外，还需要初始化相关属性。</p>
+</li>
+<li><p>内置函数 new 计算类型大小，为其分配零值内存，返回指针。而 make 会被编译器翻译成具体的创建函数，由其分配内存和初始化成员结构，返回对象而非指针。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a := []<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>&#125; <span class="comment">// 提供初始化表达式。</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="number">10</span></span><br><span class="line">b := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">3</span>) <span class="comment">// makeslice</span></span><br><span class="line">b[<span class="number">1</span>] = <span class="number">10</span></span><br><span class="line">c := <span class="built_in">new</span>([]<span class="type">int</span>)</span><br><span class="line">c[<span class="number">1</span>] = <span class="number">10</span> <span class="comment">// Error: invalid operation: c[1] (index of type *[]int)</span></span><br><span class="line">d := <span class="built_in">new</span>(<span class="type">int</span>)</span><br><span class="line">*d = <span class="number">10</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><ul>
+<li><p>不支持隐式类型转换，即便是从窄向宽转换也不行。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b <span class="type">byte</span> = <span class="number">100</span></span><br><span class="line"><span class="comment">// var n int = b // Error: cannot use b (type byte) as type int in assignment</span></span><br><span class="line"><span class="keyword">var</span> n <span class="type">int</span> = <span class="type">int</span>(b) <span class="comment">// 显式转换</span></span><br></pre></td></tr></table></figure></li>
+<li><p>使用括号避免优先级错误。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">*Point(p) <span class="comment">// 相当于 *(Point(p))</span></span><br><span class="line">(*Point)(p)</span><br><span class="line">&lt;-<span class="keyword">chan</span> <span class="type">int</span>(c) <span class="comment">// 相当于 &lt;-(chan int(c))</span></span><br><span class="line">(&lt;-<span class="keyword">chan</span> <span class="type">int</span>)(c)</span><br></pre></td></tr></table></figure></li>
+<li><p>同样不能将其他类型当 bool 值使用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a := <span class="number">100</span></span><br><span class="line"><span class="keyword">if</span> a &#123; <span class="comment">// Error: non-bool a (type int) used as if condition</span></span><br><span class="line">	<span class="built_in">println</span>(<span class="string">&quot;true&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><ul>
+<li><p>字符串是不可变值类型，内部用指针指向 UTF-8 字节数组。</p>
+</li>
+<li><p>默认值是空字符串 “”。</p>
+</li>
+<li><p>用索引号访问某字节，如 s[i]。</p>
+</li>
+<li><p>不能用序号获取字节元素指针，&amp;s[i] 非法。</p>
+</li>
+<li><p>不可变类型，无法修改字节数组。</p>
+</li>
+<li><p>字节数组尾部不包含 NULL。</p>
+</li>
+<li><p>在go中源代码<code>src/builtin/builtin.go</code>中定义了string标准概念：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// string is the set of all strings of 8-bit bytes, conventionally but not</span></span><br><span class="line"><span class="comment">// necessarily representing UTF-8-encoded text. A string may be empty, but</span></span><br><span class="line"><span class="comment">// not nil. Values of string type are immutable.</span></span><br><span class="line"><span class="keyword">type</span> <span class="type">string</span> <span class="type">string</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>string是8bit字节的集合，通常是但并不一定非得是UTF-8编码的文本。</li>
+<li>string可以为空(长度为0)，但不会是nil。</li>
+<li>string对象不可以修改。</li>
+</ul>
+</li>
+<li><p>在go源代码<code>src/runtime/string.go:stringStruct</code>中定义了string的数据结构：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> stringStruct <span class="keyword">struct</span> &#123;</span><br><span class="line">	str unsafe.Pointer		<span class="comment">//字符串首地址，指向底层字节数组的指针</span></span><br><span class="line">	<span class="built_in">len</span> <span class="type">int</span>					<span class="comment">//字符串长度</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/27/Go/%E7%B1%BB%E5%9E%8B/9145ac5758a792600481cd4a1a28e675_586x324.png"></p>
+</li>
+<li><p>使用 “`” 定义不做转义处理的原始字符串，支持跨行。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">`a</span></span><br><span class="line"><span class="string">b\r\n\x00</span></span><br><span class="line"><span class="string">c`</span></span><br><span class="line">	<span class="built_in">println</span>(s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>a<br>b\r\n\x00<br>c</p>
+</blockquote>
+</li>
+<li><p>连接跨行字符串时，”+” 必须在上一行末尾，否则导致编译错误。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s := <span class="string">&quot;Hello, &quot;</span> +</span><br><span class="line"><span class="string">&quot;World!&quot;</span></span><br><span class="line">s2 := <span class="string">&quot;Hello, &quot;</span></span><br><span class="line">+ <span class="string">&quot;World!&quot;</span> <span class="comment">// Error: invalid operation: + untyped string</span></span><br></pre></td></tr></table></figure></li>
+<li><p>单引号字符常量表示 Unicode Code Point，支持 \uFFFF、\U7FFFFFFF、\xFF 格式。对应 rune 类型，UCS-4。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;%T\n&quot;</span>, <span class="string">&#x27;a&#x27;</span>)</span><br><span class="line">	<span class="keyword">var</span> c1, c2 <span class="type">rune</span> = <span class="string">&#x27;\u6211&#x27;</span>, <span class="string">&#x27;们&#x27;</span></span><br><span class="line">	<span class="built_in">println</span>(c1 == <span class="string">&#x27;我&#x27;</span>, <span class="type">string</span>(c2) == <span class="string">&quot;\xe4\xbb\xac&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>int32 // rune 是 int32 的别名<br>true true</p>
+</blockquote>
+</li>
+<li><p>要修改字符串，可先将其转换成 []rune 或 []byte，完成后再转换为 string。无论哪种转换，都会重新分配内存，并复制字节数组。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">&quot;abcd&quot;</span></span><br><span class="line">	bs := []<span class="type">byte</span>(s)</span><br><span class="line">	bs[<span class="number">1</span>] = <span class="string">&#x27;B&#x27;</span></span><br><span class="line">	<span class="built_in">println</span>(<span class="type">string</span>(bs))</span><br><span class="line">	u := <span class="string">&quot;电脑&quot;</span></span><br><span class="line">	us := []<span class="type">rune</span>(u)</span><br><span class="line">	us[<span class="number">1</span>] = <span class="string">&#x27;话&#x27;</span></span><br><span class="line">	<span class="built_in">println</span>(<span class="type">string</span>(us))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>aBcd<br>电话</p>
+</blockquote>
+</li>
+<li><p>用 for 循环遍历字符串时，也有 byte 和 rune 两种方式。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := <span class="string">&quot;abc汉字&quot;</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(s); i++ &#123; <span class="comment">// byte</span></span><br><span class="line">		fmt.Printf(<span class="string">&quot;%c,&quot;</span>, s[i])</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println()</span><br><span class="line">	<span class="keyword">for</span> _, r := <span class="keyword">range</span> s &#123; <span class="comment">// rune</span></span><br><span class="line">		fmt.Printf(<span class="string">&quot;%c,&quot;</span>, r)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>a,b,c,æ,±,,å,­,,<br>a,b,c,汉,字,</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><ul>
+<li><p>支持指针类型 *T，指针的指针 **T，以及包含包名前缀的 *<package>.T。</package></p>
+</li>
+<li><p>默认值 nil，没有 NULL 常量。</p>
+</li>
+<li><p>操作符 “&amp;” 取变量地址，”*” 透过指针访问目标对象。</p>
+</li>
+<li><p>不支持指针运算，不支持 “-&gt;” 运算符，直接用 “.” 访问目标成员。</p>
+</li>
+<li><p>不能对指针做加减法等运算。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x := <span class="number">1234</span></span><br><span class="line">p := &amp;x</span><br><span class="line">p++ <span class="comment">// Error: invalid operation: p += 1 (mismatched types *int and int)</span></span><br></pre></td></tr></table></figure></li>
+<li><p>可以在 unsafe.Pointer 和任意类型指针间进行转换。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="number">0x12345678</span></span><br><span class="line">	p := unsafe.Pointer(&amp;x) <span class="comment">// *int -&gt; Pointer</span></span><br><span class="line">	n := (*[<span class="number">4</span>]<span class="type">byte</span>)(p)      <span class="comment">// Pointer -&gt; *[4]byte</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(n); i++ &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;%X &quot;</span>, n[i])</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>78 56 34 12 </p>
+</blockquote>
+</li>
+<li><p>返回局部变量指针是安全的，编译器会根据需要将其分配在 GC Heap 上。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">()</span></span> *<span class="type">int</span> &#123;</span><br><span class="line">	x := <span class="number">100</span></span><br><span class="line">	<span class="keyword">return</span> &amp;x <span class="comment">// 在堆上分配 x 内存。但在内联时，也可能直接分配在目标栈。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>将 Pointer 转换成 uintptr，可变相实现指针运算。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	d := <span class="keyword">struct</span> &#123;</span><br><span class="line">		s <span class="type">string</span></span><br><span class="line">		x <span class="type">int</span></span><br><span class="line">	&#125;&#123;<span class="string">&quot;abc&quot;</span>, <span class="number">100</span>&#125;</span><br><span class="line">	p := <span class="type">uintptr</span>(unsafe.Pointer(&amp;d)) <span class="comment">// *struct -&gt; Pointer -&gt; uintptr</span></span><br><span class="line">	p += unsafe.Offsetof(d.x)        <span class="comment">// uintptr + offset</span></span><br><span class="line">	p2 := unsafe.Pointer(p)          <span class="comment">// uintptr -&gt; Pointer</span></span><br><span class="line">	px := (*<span class="type">int</span>)(p2)                 <span class="comment">// Pointer -&gt; *int</span></span><br><span class="line">	*px = <span class="number">200</span>                        <span class="comment">// d.x = 200</span></span><br><span class="line">	fmt.Printf(<span class="string">&quot;%#v\n&quot;</span>, d)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>struct { s string; x int }{s:”abc”, x:200}</p>
+</blockquote>
+<p>注意：GC 把 uintptr 当成普通整数对象，它无法阻止 “关联” 对象被回收。</p>
+</li>
+</ul>
+<h2 id="自定义类型"><a href="#自定义类型" class="headerlink" title="自定义类型"></a>自定义类型</h2><ul>
+<li><p>可将类型分为命名和未命名两大类。命名类型包括 bool、int、string 等，而 array、slice、map 等和具体元素类型、长度等有关，属于未命名类型。</p>
+</li>
+<li><p>具有相同声明的未命名类型被视为同一类型。</p>
+<ul>
+<li>具有相同基类型的指针。</li>
+<li>具有相同元素类型和长度的 array。</li>
+<li>具有相同元素类型的 slice。</li>
+<li>具有相同键值类型的 map。</li>
+<li>具有相同元素类型和传送方向的 channel。</li>
+<li>具有相同字段序列 (字段名、类型、标签、顺序) 的匿名 struct。</li>
+<li>签名相同 (参数和返回值，不包括参数名称) 的 function。</li>
+<li>方法集相同 (方法名、方法签名相同，和次序无关) 的 interface。</li>
+</ul>
+</li>
+<li><p>可用 type 在全局或函数内定义新类型。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">type</span> bigint <span class="type">int64</span></span><br><span class="line">	<span class="keyword">var</span> x bigint = <span class="number">100</span></span><br><span class="line">	<span class="built_in">println</span>(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>新类型不是原类型的别名，除拥有相同数据存储结构外，它们之间没有任何关系，不会持有原类型任何信息。除非目标类型是未命名类型，否则必须显式转换。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">x := <span class="number">1234</span></span><br><span class="line"><span class="keyword">var</span> b bigint = bigint(x) <span class="comment">// 必须显式转换，除⾮非是常量。</span></span><br><span class="line"><span class="keyword">var</span> b2 <span class="type">int64</span> = <span class="type">int64</span>(b)</span><br><span class="line"><span class="keyword">var</span> s myslice = []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125; <span class="comment">// 未命名类型，隐式转换。</span></span><br><span class="line"><span class="keyword">var</span> s2 []<span class="type">int</span> = s</span><br></pre></td></tr></table></figure></li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>类型</p><p><a href="https://mrcq.github.io/2022/10/27/Go/类型/">https://mrcq.github.io/2022/10/27/Go/类型/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Kurisu</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-10-27</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-11-04</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><hr style="height:1px;margin:1rem 0"><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/Go/">Go </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/10/28/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E%E9%80%9A%E8%AF%86%E8%AF%BE/%E8%B4%A7%E5%B8%81%E7%90%86%E8%AE%BA/%E4%B8%AD%E5%A4%AE%E9%93%B6%E8%A1%8C/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">中央银行</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/10/27/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E%E9%80%9A%E8%AF%86%E8%AF%BE/%E8%B4%A7%E5%B8%81%E7%90%86%E8%AE%BA/%E8%B4%A7%E5%B8%81%E7%9A%84%E8%81%8C%E8%83%BD/"><span class="level-item">货币职能与发行</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.png" alt="Kurisu"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Kurisu</p><p class="is-size-6 is-block">水滴石穿，聚沙成塔</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">43</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">13</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/mrcq" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/mrcq"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#变量"><span class="level-left"><span class="level-item">1</span><span class="level-item">变量</span></span></a></li><li><a class="level is-mobile" href="#常量"><span class="level-left"><span class="level-item">2</span><span class="level-item">常量</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#枚举"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">枚举</span></span></a></li></ul></li><li><a class="level is-mobile" href="#基本类型"><span class="level-left"><span class="level-item">3</span><span class="level-item">基本类型</span></span></a></li><li><a class="level is-mobile" href="#引用类型"><span class="level-left"><span class="level-item">4</span><span class="level-item">引用类型</span></span></a></li><li><a class="level is-mobile" href="#类型转换"><span class="level-left"><span class="level-item">5</span><span class="level-item">类型转换</span></span></a></li><li><a class="level is-mobile" href="#字符串"><span class="level-left"><span class="level-item">6</span><span class="level-item">字符串</span></span></a></li><li><a class="level is-mobile" href="#指针"><span class="level-left"><span class="level-item">7</span><span class="level-item">指针</span></span></a></li><li><a class="level is-mobile" href="#自定义类型"><span class="level-left"><span class="level-item">8</span><span class="level-item">自定义类型</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 Kurisu</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

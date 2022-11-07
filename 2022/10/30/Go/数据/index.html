@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>数据 - Kurisu&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Kurisu&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Kurisu&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="Array 数组是值类型，赋值和传参会复制整个数组，而不是指针。  数组长度必须是常量，且是类型的组成部分。[2]int 和 [3]int 是不同类型。  支持 “&amp;#x3D;&amp;#x3D;”、”!&amp;#x3D;” 操作符，因为内存总是被初始化过的。  指针数组 [n]*T，数组指针 *[n]T。因为数组指针是一个指针，所以在定义时，先写 *， 表示定义一个指针，后面接数据类型  可用复合语句初始化。"><meta property="og:type" content="blog"><meta property="og:title" content="数据"><meta property="og:url" content="https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/"><meta property="og:site_name" content="Kurisu&#039;s Blog"><meta property="og:description" content="Array 数组是值类型，赋值和传参会复制整个数组，而不是指针。  数组长度必须是常量，且是类型的组成部分。[2]int 和 [3]int 是不同类型。  支持 “&amp;#x3D;&amp;#x3D;”、”!&amp;#x3D;” 操作符，因为内存总是被初始化过的。  指针数组 [n]*T，数组指针 *[n]T。因为数组指针是一个指针，所以在定义时，先写 *， 表示定义一个指针，后面接数据类型  可用复合语句初始化。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030213925357.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030214047549.png"><meta property="og:image" content="https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030215001597.png"><meta property="article:published_time" content="2022-10-30T12:01:01.000Z"><meta property="article:modified_time" content="2022-11-04T02:16:40.378Z"><meta property="article:author" content="Kurisu"><meta property="article:tag" content="Go"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030213925357.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/"},"headline":"数据","image":["https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030213925357.png","https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030214047549.png","https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030215001597.png"],"datePublished":"2022-10-30T12:01:01.000Z","dateModified":"2022-11-04T02:16:40.378Z","author":{"@type":"Person","name":"Kurisu"},"publisher":{"@type":"Organization","name":"Kurisu's Blog","logo":{"@type":"ImageObject","url":"https://mrcq.github.io/img/logo.svg"}},"description":"Array 数组是值类型，赋值和传参会复制整个数组，而不是指针。  数组长度必须是常量，且是类型的组成部分。[2]int 和 [3]int 是不同类型。  支持 “&#x3D;&#x3D;”、”!&#x3D;” 操作符，因为内存总是被初始化过的。  指针数组 [n]*T，数组指针 *[n]T。因为数组指针是一个指针，所以在定义时，先写 *， 表示定义一个指针，后面接数据类型  可用复合语句初始化。"}</script><link rel="canonical" href="https://mrcq.github.io/2022/10/30/Go/%E6%95%B0%E6%8D%AE/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Serif Simplified Chinese:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?ed68212360e83c07d191372605274f6e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><meta name="msvalidate.01" content="D5E963705D472839D42E0AC1C65D96AB"><script src="https://www.googletagmanager.com/gtag/js?id=G-X1YWL675NS" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-X1YWL675NS');</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">时间轴</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal"><i class="fas fa-angle-double-right"></i>数据</h1><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><i class="far fa-calendar-alt"> </i><time dateTime="2022-10-30T12:01:01.000Z" title="2022-10-30T12:01:01.000Z">2022-10-30</time></span><span class="level-item is-hidden-mobile"><i class="far fa-calendar-check"> </i><time dateTime="2022-11-04T02:16:40.378Z" title="2022-11-04T02:16:40.378Z">2022-11-04</time></span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a><span> / </span><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a><span> / </span><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/Go/">Go</a></span><span class="level-item">11 分钟读完 (大约1652个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><div class="content"><h2 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h2><ul>
+<li><p>数组是值类型，赋值和传参会复制整个数组，而不是指针。</p>
+</li>
+<li><p>数组长度必须是常量，且是类型的组成部分。[2]int 和 [3]int 是不同类型。</p>
+</li>
+<li><p>支持 “==”、”!=” 操作符，因为内存总是被初始化过的。</p>
+</li>
+<li><p>指针数组 [n]*T，数组指针 *[n]T。因为数组指针是一个指针，所以在定义时，先写 *， 表示定义一个指针，后面接数据类型</p>
+</li>
+<li><p>可用复合语句初始化。<span id="more"></span></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">a := [<span class="number">3</span>]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>&#125;           <span class="comment">// 未初始化元素值为 0。</span></span><br><span class="line">b := [...]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;   <span class="comment">// 通过初始化值确定数组长度。</span></span><br><span class="line">c := [<span class="number">5</span>]<span class="type">int</span>&#123;<span class="number">2</span>: <span class="number">100</span>, <span class="number">4</span>: <span class="number">200</span>&#125; <span class="comment">// 使用索引号初始化元素。</span></span><br><span class="line">d := [...]<span class="keyword">struct</span> &#123;</span><br><span class="line">	name <span class="type">string</span></span><br><span class="line">	age  <span class="type">uint8</span></span><br><span class="line">&#125;&#123;</span><br><span class="line">	&#123;<span class="string">&quot;user1&quot;</span>, <span class="number">10</span>&#125;, <span class="comment">// 可省略元素类型。</span></span><br><span class="line">	&#123;<span class="string">&quot;user2&quot;</span>, <span class="number">20</span>&#125;, <span class="comment">// 别忘了最后一行的逗号。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>支持多维数组。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a := [<span class="number">2</span>][<span class="number">3</span>]<span class="type">int</span>&#123;&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;, &#123;<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;&#125;</span><br><span class="line">b := [...][<span class="number">2</span>]<span class="type">int</span>&#123;&#123;<span class="number">1</span>, <span class="number">1</span>&#125;, &#123;<span class="number">2</span>, <span class="number">2</span>&#125;, &#123;<span class="number">3</span>, <span class="number">3</span>&#125;&#125; <span class="comment">// 第 2 纬度不能用 &quot;...&quot;。</span></span><br></pre></td></tr></table></figure></li>
+<li><p>值拷贝行为会造成性能问题，通常会建议使用 slice，或数组指针。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">test</span><span class="params">(x [2]<span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;x: %p\n&quot;</span>, &amp;x)</span><br><span class="line">	x[<span class="number">1</span>] = <span class="number">1000</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := [<span class="number">2</span>]<span class="type">int</span>&#123;&#125;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;a: %p\n&quot;</span>, &amp;a)</span><br><span class="line">	test(a)</span><br><span class="line">	fmt.Println(a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>a: 0xc0000a6070<br>x: 0xc0000a60a0<br>[0 0]</p>
+</blockquote>
+</li>
+<li><p>内置函数 len 和 cap 都返回数组长度 (元素数量)。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a := [<span class="number">2</span>]<span class="type">int</span>&#123;&#125;</span><br><span class="line"><span class="built_in">println</span>(<span class="built_in">len</span>(a), <span class="built_in">cap</span>(a)) <span class="comment">// 2, 2</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Slice"><a href="#Slice" class="headerlink" title="Slice"></a>Slice</h2><ul>
+<li><p>需要说明，slice 并不是数组或数组指针。它通过内部指针和相关属性引用数组片段，以实现变长方案。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> slice <span class="keyword">struct</span> &#123;</span><br><span class="line">    array unsafe.Pointer</span><br><span class="line">    <span class="built_in">len</span>   <span class="type">int</span></span><br><span class="line">    <span class="built_in">cap</span>   <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>引用类型。但自身是结构体，值拷贝传递。</p>
+</li>
+<li><p>array 是切片所指向的底层数组数据</p>
+<ul>
+<li>属性 len 表示可用元素数量，读写操作不能超过该限制。</li>
+<li>属性 cap 表示最大扩张容量，不能超出数组限制。</li>
+<li>如果 slice == nil，那么 len、cap 结果都等于 0。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> data := [...]<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;</span><br><span class="line">slice := data[<span class="number">1</span>:<span class="number">4</span>:<span class="number">5</span>] <span class="comment">// [low : high : max]</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><img src="/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030213925357.png"></p>
+</li>
+<li><p>创建表达式使用的是元素索引号，而非数量。</p>
+<p><img src="/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030214047549.png"></p>
+<p> 如果 max 要求获取的容量大于旧数据容量. 那会 panic</p>
+</li>
+<li><p>读写操作实际目标是底层数组，只需注意索引号的差别。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data := [...]<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">s := data[<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line">s[<span class="number">0</span>] += <span class="number">100</span></span><br><span class="line">s[<span class="number">1</span>] += <span class="number">200</span></span><br><span class="line">fmt.Println(s)</span><br><span class="line">fmt.Println(data)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>[102 203]<br>[0 1 102 203 4 5]</p>
+</blockquote>
+</li>
+<li><p>可直接创建 slice 对象，自动分配底层数组。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s1 := []<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">8</span>: <span class="number">100</span>&#125; <span class="comment">// 通过初始化表达式构造，可使用索引号。</span></span><br><span class="line">fmt.Println(s1, <span class="built_in">len</span>(s1), <span class="built_in">cap</span>(s1))</span><br><span class="line">s2 := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">6</span>, <span class="number">8</span>) <span class="comment">// 使用 make 创建，指定 len 和 cap 值。</span></span><br><span class="line">fmt.Println(s2, <span class="built_in">len</span>(s2), <span class="built_in">cap</span>(s2))</span><br><span class="line">s3 := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">6</span>) <span class="comment">// 省略 cap，相当于 cap = len。</span></span><br><span class="line">fmt.Println(s3, <span class="built_in">len</span>(s3), <span class="built_in">cap</span>(s3))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>[0 1 2 3 0 0 0 0 100] 9 9<br>[0 0 0 0 0 0] 6 8<br>[0 0 0 0 0 0] 6 6</p>
+</blockquote>
+</li>
+<li><p>使用 make 动态创建 slice，避免了数组必须用常量做长度的麻烦。还可用指针直接访问底层数组，退化成普通数组操作。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s := []<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;</span><br><span class="line">p := &amp;s[<span class="number">2</span>] <span class="comment">// *int, 获取底层数组元素指针。</span></span><br><span class="line">*p += <span class="number">100</span></span><br><span class="line">fmt.Println(s)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>[0 1 102 3]</p>
+</blockquote>
+</li>
+<li><p>至于 [][]T，是指元素类型为 []T 。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data := [][]<span class="type">int</span>&#123;</span><br><span class="line">	[]<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;,</span><br><span class="line">	[]<span class="type">int</span>&#123;<span class="number">100</span>, <span class="number">200</span>&#125;,</span><br><span class="line">	[]<span class="type">int</span>&#123;<span class="number">11</span>, <span class="number">22</span>, <span class="number">33</span>, <span class="number">44</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>可直接修改 struct array/slice 成员。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">d := [<span class="number">5</span>]<span class="keyword">struct</span> &#123;</span><br><span class="line">	x <span class="type">int</span></span><br><span class="line">&#125;&#123;&#125;</span><br><span class="line">s := d[:]</span><br><span class="line">d[<span class="number">1</span>].x = <span class="number">10</span></span><br><span class="line">s[<span class="number">2</span>].x = <span class="number">20</span></span><br><span class="line">fmt.Println(d)</span><br><span class="line">fmt.Printf(<span class="string">&quot;%p, %p\n&quot;</span>, &amp;d, &amp;d[<span class="number">0</span>])</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>[{0} {10} {20} {0} {0}]<br>0x20819c180, 0x20819c180</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="reslice"><a href="#reslice" class="headerlink" title="reslice"></a>reslice</h3><ul>
+<li><p>所谓 reslice，是基于已有 slice 创建新 slice 对象，以便在 cap 允许范围内调整属性。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">s := []<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">s1 := s[<span class="number">2</span>:<span class="number">5</span>] <span class="comment">// [2 3 4]</span></span><br><span class="line">s2 := s1[<span class="number">2</span>:<span class="number">6</span>:<span class="number">7</span>] <span class="comment">// [4 5 6 7]</span></span><br><span class="line">s3 := s2[<span class="number">3</span>:<span class="number">6</span>] <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/10/30/Go/%E6%95%B0%E6%8D%AE/image-20221030215001597.png"></p>
+</li>
+<li><p>新对象依旧指向原底层数组。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">s := []<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">s1 := s[<span class="number">2</span>:<span class="number">5</span>] <span class="comment">// [2 3 4]</span></span><br><span class="line">s1[<span class="number">2</span>] = <span class="number">100</span></span><br><span class="line">s2 := s1[<span class="number">2</span>:<span class="number">6</span>] <span class="comment">// [100 5 6 7]</span></span><br><span class="line">s2[<span class="number">3</span>] = <span class="number">200</span></span><br><span class="line">fmt.Println(s)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>[0 1 2 3 100 5 6 200 8 9]</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="append"><a href="#append" class="headerlink" title="append"></a>append</h3><ul>
+<li><p>向 slice 尾部添加数据，返回新的 slice 对象。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">0</span>, <span class="number">5</span>)</span><br><span class="line">fmt.Printf(<span class="string">&quot;%p\n&quot;</span>, &amp;s)</span><br><span class="line">s2 := <span class="built_in">append</span>(s, <span class="number">1</span>) <span class="comment">// 值拷贝 </span></span><br><span class="line">fmt.Printf(<span class="string">&quot;%p\n&quot;</span>, &amp;s2)</span><br><span class="line">fmt.Println(s, s2)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>0x210230000<br>0x210230040<br>[] [1]</p>
+</blockquote>
+</li>
+<li><p>简单点说，就是在 array[slice.high] 写数据。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data := [...]<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">s := data[:<span class="number">3</span>]</span><br><span class="line">s2 := <span class="built_in">append</span>(s, <span class="number">100</span>, <span class="number">200</span>) <span class="comment">// 添加多个值。</span></span><br><span class="line">fmt.Println(data)</span><br><span class="line">fmt.Println(s)</span><br><span class="line">fmt.Println(s2)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>[0 1 2 100 200 5 6 7 8 9]<br>[0 1 2]<br>[0 1 2 100 200]</p>
+</blockquote>
+</li>
+<li><p>一旦超出原 slice.cap 限制，就会重新分配底层数组，即便原数组并未填满。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">data := [...]<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">10</span>: <span class="number">0</span>&#125;</span><br><span class="line">s := data[:<span class="number">2</span>:<span class="number">3</span>]</span><br><span class="line">s = <span class="built_in">append</span>(s, <span class="number">100</span>, <span class="number">200</span>) <span class="comment">// 一次 append 两个值，超出 s.cap 限制。</span></span><br><span class="line">fmt.Println(s, data) <span class="comment">// 重新分配底层数组，与原数组⽆无关。</span></span><br><span class="line">fmt.Println(&amp;s[<span class="number">0</span>], &amp;data[<span class="number">0</span>]) <span class="comment">// 比对底层数组起始指针。</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>[0 1 100 200] [0 1 2 3 4 0 0 0 0 0 0]<br>0x20819c180 0x20817c0c0</p>
+</blockquote>
+<p>从输出结果可以看出，append 后的 s 重新分配了底层数组，并复制数据。如果只追加一个值，则不会超过 s.cap 限制，也就不会重新分配。</p>
+</li>
+<li><p>通常以 2 倍容量重新分配底层数组。在大批量添加数据时，建议一次性分配足够大的空间，以减少内存分配和数据复制开销。或初始化足够⻓长的 len 属性，改用索引号进行操作。及时释放不再使用的 slice 对象，避免持有过期数组，造成 GC 无法回收。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">s := <span class="built_in">make</span>([]<span class="type">int</span>, <span class="number">0</span>, <span class="number">1</span>)</span><br><span class="line">c := <span class="built_in">cap</span>(s)</span><br><span class="line"><span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">50</span>; i++ &#123;</span><br><span class="line">	s = <span class="built_in">append</span>(s, i)</span><br><span class="line">	<span class="keyword">if</span> n := <span class="built_in">cap</span>(s); n &gt; c &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;cap: %d -&gt; %d\n&quot;</span>, c, n)</span><br><span class="line">		c = n</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>cap: 1 -&gt; 2</p>
+<p>cap: 2 -&gt; 4</p>
+<p>cap: 4 -&gt; 8</p>
+<p>cap: 8 -&gt; 16</p>
+<p>cap: 16 -&gt; 32</p>
+<p>cap: 32 -&gt; 64</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="copy"><a href="#copy" class="headerlink" title="copy"></a>copy</h3><ul>
+<li><p>它只能用于切片，不能用于 map 等任何其他类型</p>
+</li>
+<li><p>它返回结果为一个 int 型值，表示 copy 的长度</p>
+</li>
+<li><p>切片 dst 需要先初始化长度</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">copy</span><span class="params">(dst, src []Type)</span></span> <span class="type">int</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果 dst 长度小于 src 的长度，则 copy 部分。</li>
+<li>如果大于，则全部拷贝过来，只是没占满 dst 的坑位而已，不会扩大被复制的cap。</li>
+<li>相等时刚好不多不少 copy 过来。</li>
+</ul>
+</li>
+<li><p>函数 copy 在两个 slice 间复制数据，复制长度以 len 小的为准。两个 slice 可指向同一底层数组，允许元素区间重叠。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data := [...]<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">s := data[<span class="number">8</span>:]</span><br><span class="line">s2 := data[:<span class="number">5</span>]</span><br><span class="line"><span class="built_in">copy</span>(s2, s) <span class="comment">// dst:s2, src:s</span></span><br><span class="line">fmt.Println(s2)</span><br><span class="line">fmt.Println(data)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>输出：</p>
+<p>[8 9 2 3 4]<br>[8 9 2 3 4 5 6 7 8 9]</p>
+</blockquote>
+</li>
+<li><p>应及时将所需数据 copy 到较小的 slice，以便释放超大号底层数组内存。</p>
+</li>
+<li><p>源切片中元素类型为引用类型时，拷贝的是引用</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">wrongCopyMatrix</span><span class="params">()</span></span> &#123;</span><br><span class="line">    matA := [][]<span class="type">int</span>&#123;</span><br><span class="line">        &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">        &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;,</span><br><span class="line">        &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#125;</span><br><span class="line">    matB := <span class="built_in">make</span>([][]<span class="type">int</span>, <span class="built_in">len</span>(matA))</span><br><span class="line">    <span class="built_in">copy</span>(matB, matA)</span><br><span class="line">    fmt.Printf(<span class="string">&quot;%p, %p\n&quot;</span>, matA, matA[<span class="number">0</span>]) <span class="comment">// 0xc0000c0000, 0xc0000c2000</span></span><br><span class="line">    fmt.Printf(<span class="string">&quot;%p, %p\n&quot;</span>, matB, matB[<span class="number">0</span>]) <span class="comment">// 0xc0000c0050, 0xc0000c2000</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果想 copy 多维切片中的每一个切片类型的元素，那么你需要将每个切片元素进行 <strong>初始化</strong> 并 <strong>拷贝</strong>。注意是两步：先 <strong>初始化</strong>，再 <strong>拷贝</strong>。</p>
+<p>正确的拷贝一个多维数组：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rightCopyMatrix</span><span class="params">()</span></span> &#123;</span><br><span class="line">    matA := [][]<span class="type">int</span>&#123;</span><br><span class="line">        &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">        &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>&#125;,</span><br><span class="line">        &#123;<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>&#125;,</span><br><span class="line">    &#125;</span><br><span class="line">    matB := <span class="built_in">make</span>([][]<span class="type">int</span>, <span class="built_in">len</span>(matA))</span><br><span class="line">    <span class="keyword">for</span> i := <span class="keyword">range</span> matA &#123;</span><br><span class="line">        matB[i] = <span class="built_in">make</span>([]<span class="type">int</span>, <span class="built_in">len</span>(matA[i])) <span class="comment">// 注意初始化长度</span></span><br><span class="line">        <span class="built_in">copy</span>(matB[i], matA[i])</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;%p, %p\n&quot;</span>, matA, matA[<span class="number">0</span>]) <span class="comment">// 0xc00005c050, 0xc000018560</span></span><br><span class="line">    fmt.Printf(<span class="string">&quot;%p, %p\n&quot;</span>, matB, matB[<span class="number">0</span>]) <span class="comment">// 0xc00005c0a0, 0xc0000185c0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>数据</p><p><a href="https://mrcq.github.io/2022/10/30/Go/数据/">https://mrcq.github.io/2022/10/30/Go/数据/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Kurisu</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-10-30</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-11-04</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><hr style="height:1px;margin:1rem 0"><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/Go/">Go </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/10/31/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E%E9%80%9A%E8%AF%86%E8%AF%BE/%E8%B4%A7%E5%B8%81%E7%90%86%E8%AE%BA/%E9%87%91%E8%9E%8D%E5%B8%82%E5%9C%BA/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">金融市场</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/10/30/Go/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"><span class="level-item">错误处理</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.png" alt="Kurisu"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Kurisu</p><p class="is-size-6 is-block">水滴石穿，聚沙成塔</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">43</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">13</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/mrcq" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/mrcq"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#Array"><span class="level-left"><span class="level-item">1</span><span class="level-item">Array</span></span></a></li><li><a class="level is-mobile" href="#Slice"><span class="level-left"><span class="level-item">2</span><span class="level-item">Slice</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#reslice"><span class="level-left"><span class="level-item">2.1</span><span class="level-item">reslice</span></span></a></li><li><a class="level is-mobile" href="#append"><span class="level-left"><span class="level-item">2.2</span><span class="level-item">append</span></span></a></li><li><a class="level is-mobile" href="#copy"><span class="level-left"><span class="level-item">2.3</span><span class="level-item">copy</span></span></a></li></ul></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 Kurisu</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

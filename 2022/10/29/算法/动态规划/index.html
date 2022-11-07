@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>动态规划 - Kurisu&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Kurisu&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Kurisu&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="什么是动态规划动态规划，英文：Dynamic Programming，简称DP，如果某一问题有很多重叠子问题，使用动态规划是最有效的。 所以动态规划中每一个状态一定是由上一个状态推导出来的，这一点就区分于贪心，贪心没有状态推导，而是从局部直接选最优的。"><meta property="og:type" content="blog"><meta property="og:title" content="动态规划"><meta property="og:url" content="https://mrcq.github.io/2022/10/29/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><meta property="og:site_name" content="Kurisu&#039;s Blog"><meta property="og:description" content="什么是动态规划动态规划，英文：Dynamic Programming，简称DP，如果某一问题有很多重叠子问题，使用动态规划是最有效的。 所以动态规划中每一个状态一定是由上一个状态推导出来的，这一点就区分于贪心，贪心没有状态推导，而是从局部直接选最优的。"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://mrcq.github.io/img/og_image.png"><meta property="article:published_time" content="2022-10-29T03:14:11.000Z"><meta property="article:modified_time" content="2022-11-07T02:59:02.826Z"><meta property="article:author" content="Kurisu"><meta property="article:tag" content="动态规划"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://mrcq.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mrcq.github.io/2022/10/29/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"},"headline":"动态规划","image":["https://mrcq.github.io/img/og_image.png"],"datePublished":"2022-10-29T03:14:11.000Z","dateModified":"2022-11-07T02:59:02.826Z","author":{"@type":"Person","name":"Kurisu"},"publisher":{"@type":"Organization","name":"Kurisu's Blog","logo":{"@type":"ImageObject","url":"https://mrcq.github.io/img/logo.svg"}},"description":"什么是动态规划动态规划，英文：Dynamic Programming，简称DP，如果某一问题有很多重叠子问题，使用动态规划是最有效的。 所以动态规划中每一个状态一定是由上一个状态推导出来的，这一点就区分于贪心，贪心没有状态推导，而是从局部直接选最优的。"}</script><link rel="canonical" href="https://mrcq.github.io/2022/10/29/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Serif Simplified Chinese:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?ed68212360e83c07d191372605274f6e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><meta name="msvalidate.01" content="D5E963705D472839D42E0AC1C65D96AB"><script src="https://www.googletagmanager.com/gtag/js?id=G-X1YWL675NS" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-X1YWL675NS');</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">时间轴</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal"><i class="fas fa-angle-double-right"></i>动态规划</h1><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><i class="far fa-calendar-alt"> </i><time dateTime="2022-10-29T03:14:11.000Z" title="2022-10-29T03:14:11.000Z">2022-10-29</time></span><span class="level-item is-hidden-mobile"><i class="far fa-calendar-check"> </i><time dateTime="2022-11-07T02:59:02.826Z" title="2022-11-07T02:59:02.826Z">2022-11-07</time></span><span class="level-item"><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a><span> / </span><a class="link-muted" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/%E7%AE%97%E6%B3%95/">算法</a></span><span class="level-item">14 分钟读完 (大约2139个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><div class="content"><h2 id="什么是动态规划"><a href="#什么是动态规划" class="headerlink" title="什么是动态规划"></a>什么是动态规划</h2><p>动态规划，英文：Dynamic Programming，简称DP，如果某一问题有很多重叠子问题，使用动态规划是最有效的。</p>
+<p>所以动态规划中每一个状态一定是由上一个状态推导出来的，<strong>这一点就区分于贪心</strong>，贪心没有状态推导，而是从局部直接选最优的。<span id="more"></span></p>
+<blockquote>
+<p>例如：有N件物品和一个最多能背重量为W 的背包。第i件物品的重量是weight[i]，得到的价值是value[i] 。<strong>每件物品只能用一次</strong>，求解将哪些物品装入背包里物品价值总和最大。</p>
+<p>动态规划中dp[j]是由dp[j-weight[i]]推导出来的，然后取max(dp[j], dp[j - weight[i]] + value[i])。</p>
+<p>但如果是贪心呢，每次拿物品选一个最大的或者最小的就完事了，和上一个状态没有关系。</p>
+<p>所以贪心解决不了动态规划的问题。</p>
+</blockquote>
+<h2 id="如何理解动态规划"><a href="#如何理解动态规划" class="headerlink" title="如何理解动态规划"></a>如何理解动态规划</h2><p>动态规划最核心的思想，就在于<strong>拆分子问题，记住过往，减少重复计算</strong>。</p>
+<ul>
+<li>A ：”1+1+1+1+1+1+1+1 =？”</li>
+<li>A ：”上面等式的值是多少”</li>
+<li>B ：计算 “8”</li>
+<li>A :  在上面等式的左边写上 “1+” 呢？</li>
+<li>A : “此时等式的值为多少”</li>
+<li>B :  很快得出答案 “9”</li>
+<li>A : “你怎么这么快就知道答案了”</li>
+<li>A : “只要在8的基础上加1就行了”</li>
+<li>A : “所以你不用重新计算，因为你记住了第一个等式的值为8!动态规划算法也可以说是 ‘记住求过的解来节省时间’”</li>
+</ul>
+<h2 id="动态规划解决的问题"><a href="#动态规划解决的问题" class="headerlink" title="动态规划解决的问题"></a>动态规划解决的问题</h2><p>能采用动态规划求解的问题的一般要具有3个性质：</p>
+<ol>
+<li><p>最优化原理：如果问题的最优解所包含的子问题的解也是最优的，就称该问题具有最优子结构，即满足最优化原理。</p>
+</li>
+<li><p>无后效性：即某阶段状态一旦确定，就不受这个状态以后决策的影响。也就是说，某状态以后的过程不会影响以前的状态，只与当前状态有关</p>
+</li>
+<li><p>有重叠子问题：即子问题之间是不独立的，一个子问题在下一阶段决策中可能被多次使用到。（该性质并不是动态规划适用的必要条件，但是如果没有这条性质，动态规划算法同其他算法相比就不具备优势）</p>
+</li>
+</ol>
+<h2 id="动态规划模板"><a href="#动态规划模板" class="headerlink" title="动态规划模板"></a>动态规划模板</h2><ol>
+<li><p>确定dp数组（dp table）以及下标的含义</p>
+</li>
+<li><p>确定递推公式</p>
+</li>
+<li><p>dp数组如何初始化</p>
+</li>
+<li><p>确定遍历顺序</p>
+</li>
+<li><p>举例推导dp数组</p>
+</li>
+</ol>
+<h2 id="例题"><a href="#例题" class="headerlink" title="例题"></a>例题</h2><ul>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/fibonacci-number/description/">509. 斐波那契数</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0509.%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/climbing-stairs/description/">70. 爬楼梯</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0070.%E7%88%AC%E6%A5%BC%E6%A2%AF.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/min-cost-climbing-stairs/description/">746. 使用最小花费爬楼梯</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0746.%E4%BD%BF%E7%94%A8%E6%9C%80%E5%B0%8F%E8%8A%B1%E8%B4%B9%E7%88%AC%E6%A5%BC%E6%A2%AF.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/unique-paths/description/">62. 不同路径</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0062.%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/unique-paths-ii/description/">63. 不同路径 II</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0063.%E4%B8%8D%E5%90%8C%E8%B7%AF%E5%BE%84II.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/integer-break/description/">343. 整数拆分</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0343.%E6%95%B4%E6%95%B0%E6%8B%86%E5%88%86.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/unique-binary-search-trees/description/">96. 不同的二叉搜索树</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0096.%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91.html">题解</a></p>
+</li>
+<li><p>背包问题 —— <a href="/2022/10/31/%E7%AE%97%E6%B3%95/%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" title="理论基础">理论基础</a></p>
+<ul>
+<li><p>能否能装满背包：dp[j] = max(dp[j], dp[j - nums[i]] + nums[i])</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/partition-equal-subset-sum/description/">416. 分割等和子集</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0416.%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86.html">题解</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/last-stone-weight-ii/description/">1049. 最后一块石头的重量 II</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/1049.%E6%9C%80%E5%90%8E%E4%B8%80%E5%9D%97%E7%9F%B3%E5%A4%B4%E7%9A%84%E9%87%8D%E9%87%8FII.html">题解</a></li>
+</ul>
+</li>
+<li><p>装满背包有几种方法：dp[j] += dp[j - nums[i]]</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/climbing-stairs/description/">70. 爬楼梯</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0070.%E7%88%AC%E6%A5%BC%E6%A2%AF%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%E7%89%88%E6%9C%AC.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/target-sum/description/">494. 目标和</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0494.%E7%9B%AE%E6%A0%87%E5%92%8C.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/combination-sum-iv/description/">377. 组合总和 Ⅳ</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0377.%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C%E2%85%A3.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change-ii/">518. 零钱兑换 II</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0518.%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2II.html">题解</a></p>
+</li>
+</ul>
+</li>
+<li><p>背包装满最大价值：dp[j] = max(dp[j], dp[j - weight[i]] + value[i])</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/ones-and-zeroes/description/">474. 一和零</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0474.%E4%B8%80%E5%92%8C%E9%9B%B6.html">题解</a></li>
+</ul>
+</li>
+<li><p>装满背包所有物品的最小个数：dp[j] = min(dp[j - coins[i]] + 1, dp[j])</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/coin-change/description/">322. 零钱兑换</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0322.%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2.html#_322-%E9%9B%B6%E9%92%B1%E5%85%91%E6%8D%A2">题解</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/perfect-squares/description/">279. 完全平方数</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0279.%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0.html#_279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0">题解</a></li>
+</ul>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/word-break/description/">139. 单词拆分</a> —— <a target="_blank" rel="noopener" href="https://programmercarl.com/0139.%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86.html#_139-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86">题解</a></p>
+</li>
+</ul>
+</li>
+<li><p>打家劫舍</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/house-robber/description/">198. 打家劫舍</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0198.%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/house-robber-ii/description/">213. 打家劫舍 II</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0213.%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DII.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/house-robber-iii/description/">337. 打家劫舍 III</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0337.%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8DIII.html">题解</a></p>
+</li>
+</ul>
+</li>
+<li><p>买卖股票</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/description/">121. 买卖股票的最佳时机</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0121.%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-ii/description/">122. 买卖股票的最佳时机 II</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0122.%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII%EF%BC%88%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%89.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iii/description/">123. 买卖股票的最佳时机 III</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0123.%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAIII.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-iv/description/">188. 买卖股票的最佳时机 IV</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0188.%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAIV.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-cooldown/description/">309. 最佳买卖股票时机含冷冻期</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0309.%E6%9C%80%E4%BD%B3%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%97%B6%E6%9C%BA%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F.html">题解</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/description/">714. 买卖股票的最佳时机含手续费</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0714.%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9%EF%BC%88%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%89.html">题解</a></p>
+</li>
+</ul>
+</li>
+<li><p>子序列</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-increasing-subsequence/description/">300. 最长递增子序列</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0300.%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%AD%90%E5%BA%8F%E5%88%97.html">题解</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-continuous-increasing-subsequence/description/">674. 最长连续递增序列</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0674.%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E9%80%92%E5%A2%9E%E5%BA%8F%E5%88%97.html">题解</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-length-of-repeated-subarray/description/">718. 最长重复子数组</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0718.%E6%9C%80%E9%95%BF%E9%87%8D%E5%A4%8D%E5%AD%90%E6%95%B0%E7%BB%84.html">题解</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/longest-common-subsequence/description/">1143. 最长公共子序列</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0718.%E6%9C%80%E9%95%BF%E9%87%8D%E5%A4%8D%E5%AD%90%E6%95%B0%E7%BB%84.html">题解</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/uncrossed-lines/description/">1035. 不相交的线</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/1035.%E4%B8%8D%E7%9B%B8%E4%BA%A4%E7%9A%84%E7%BA%BF.html">题解</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/maximum-subarray/description/">53. 最大子数组和</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0053.%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C%EF%BC%88%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%89.html">题解</a></li>
+<li><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/is-subsequence/description/">392. 判断子序列</a>—— <a target="_blank" rel="noopener" href="https://programmercarl.com/0053.%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8C%EF%BC%88%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%89.html">题解</a></li>
+</ul>
+</li>
+</ul>
+</div><div class="article-licensing box"><div class="licensing-title"><p>动态规划</p><p><a href="https://mrcq.github.io/2022/10/29/算法/动态规划/">https://mrcq.github.io/2022/10/29/算法/动态规划/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Kurisu</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2022-10-29</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2022-11-07</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><hr style="height:1px;margin:1rem 0"><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">动态规划 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2022/10/29/Go/%E5%87%BD%E6%95%B0/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">函数</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2022/10/29/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E5%AE%8F%E8%A7%82%E7%BB%8F%E6%B5%8E%E9%80%9A%E8%AF%86%E8%AF%BE/%E8%B4%A7%E5%B8%81%E7%90%86%E8%AE%BA/%E8%B4%A7%E5%B8%81%E4%BE%9B%E7%BB%99%E5%92%8C%E9%9C%80%E6%B1%82/"><span class="level-item">货币供给和需求</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.png" alt="Kurisu"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Kurisu</p><p class="is-size-6 is-block">水滴石穿，聚沙成塔</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">43</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">14</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">13</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/mrcq" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/mrcq"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#什么是动态规划"><span class="level-left"><span class="level-item">1</span><span class="level-item">什么是动态规划</span></span></a></li><li><a class="level is-mobile" href="#如何理解动态规划"><span class="level-left"><span class="level-item">2</span><span class="level-item">如何理解动态规划</span></span></a></li><li><a class="level is-mobile" href="#动态规划解决的问题"><span class="level-left"><span class="level-item">3</span><span class="level-item">动态规划解决的问题</span></span></a></li><li><a class="level is-mobile" href="#动态规划模板"><span class="level-left"><span class="level-item">4</span><span class="level-item">动态规划模板</span></span></a></li><li><a class="level is-mobile" href="#例题"><span class="level-left"><span class="level-item">5</span><span class="level-item">例题</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2022 Kurisu</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>

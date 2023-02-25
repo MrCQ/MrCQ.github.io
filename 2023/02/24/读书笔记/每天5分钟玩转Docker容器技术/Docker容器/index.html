@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Docker容器 - Kurisu&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="Kurisu&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Kurisu&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="容器运行 当CMD、Entrypoint和docker run命令行指定的命令运行结束时，容器停止。  通过 -d参数在后台启动容器。  通过exec -it可进入容器并执行命令。  指定容器的三种方法：  短ID。  长ID。  容器名称。可通过 –name为容器命名。重命名容器可执行docker rename。    容器按用途可分为两类：  服务类的容器。 工具类的容器。  服务类容器以da"><meta property="og:type" content="blog"><meta property="og:title" content="Docker容器"><meta property="og:url" content="https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/"><meta property="og:site_name" content="Kurisu&#039;s Blog"><meta property="og:description" content="容器运行 当CMD、Entrypoint和docker run命令行指定的命令运行结束时，容器停止。  通过 -d参数在后台启动容器。  通过exec -it可进入容器并执行命令。  指定容器的三种方法：  短ID。  长ID。  容器名称。可通过 –name为容器命名。重命名容器可执行docker rename。    容器按用途可分为两类：  服务类的容器。 工具类的容器。  服务类容器以da"><meta property="og:locale" content="zh_CN"><meta property="og:image" content="https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204600179.png"><meta property="og:image" content="https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204630073.png"><meta property="og:image" content="https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204656937.png"><meta property="og:image" content="https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204814446.png"><meta property="og:image" content="https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204844769.png"><meta property="og:image" content="https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224205525748.png"><meta property="article:published_time" content="2023-02-24T12:30:57.000Z"><meta property="article:modified_time" content="2023-02-24T13:12:19.347Z"><meta property="article:author" content="Kurisu"><meta property="article:tag" content="Docker"><meta property="article:tag" content="每天5分钟玩转Docker容器技术"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204600179.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/"},"headline":"Docker容器","image":["https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204600179.png","https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204630073.png","https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204656937.png","https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204814446.png","https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204844769.png","https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224205525748.png"],"datePublished":"2023-02-24T12:30:57.000Z","dateModified":"2023-02-24T13:12:19.347Z","author":{"@type":"Person","name":"Kurisu"},"publisher":{"@type":"Organization","name":"Kurisu's Blog","logo":{"@type":"ImageObject","url":"https://mrcq.github.io/img/logo.svg"}},"description":"容器运行 当CMD、Entrypoint和docker run命令行指定的命令运行结束时，容器停止。  通过 -d参数在后台启动容器。  通过exec -it可进入容器并执行命令。  指定容器的三种方法：  短ID。  长ID。  容器名称。可通过 –name为容器命名。重命名容器可执行docker rename。    容器按用途可分为两类：  服务类的容器。 工具类的容器。  服务类容器以da"}</script><link rel="canonical" href="https://mrcq.github.io/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto Serif Simplified Chinese:wght@400;600&amp;family=Source+Code+Pro"><link rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><script>var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "//hm.baidu.com/hm.js?ed68212360e83c07d191372605274f6e";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();</script><meta name="msvalidate.01" content="D5E963705D472839D42E0AC1C65D96AB"><script src="https://www.googletagmanager.com/gtag/js?id=G-X1YWL675NS" async></script><script>window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+    
+        gtag('config', 'G-X1YWL675NS');</script><script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" defer></script><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+          Array
+              .from(document.querySelectorAll('.tab-content'))
+              .forEach($tab => {
+                  $tab.classList.add('is-hidden');
+              });
+          Array
+              .from(document.querySelectorAll('.tabs li'))
+              .forEach($tab => {
+                  $tab.classList.remove('is-active');
+              });
+          const $activeTab = document.querySelector(location.hash);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+          const $tabMenu = document.querySelector(`a[href="${location.hash}"]`);
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 6.0.0"></head><body class="is-3-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">主页</a><a class="navbar-item" href="/archives">时间轴</a><a class="navbar-item" href="/categories">分类</a><a class="navbar-item" href="/tags">标签</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;"><i class="fas fa-list-ul"></i></a><a class="navbar-item search" title="搜索" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-9-widescreen"><div class="card"><article class="card-content article" role="article"><h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal"><i class="fas fa-angle-double-right"></i>Docker容器</h1><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item"><i class="far fa-calendar-alt"> </i><time dateTime="2023-02-24T12:30:57.000Z" title="2023-02-24T12:30:57.000Z">2023-02-24</time></span><span class="level-item is-hidden-mobile"><i class="far fa-calendar-check"> </i><time dateTime="2023-02-24T13:12:19.347Z" title="2023-02-24T13:12:19.347Z">2023-02-24</time></span><span class="level-item"><a class="link-muted" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/">读书笔记</a><span> / </span><a class="link-muted" href="/categories/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E8%AE%A1%E7%AE%97%E6%9C%BA/">计算机</a></span><span class="level-item">16 分钟读完 (大约2399个字)</span><span class="level-item" id="busuanzi_container_page_pv"><span id="busuanzi_value_page_pv">0</span>次访问</span></div></div><div class="content"><h2 id="容器运行"><a href="#容器运行" class="headerlink" title="容器运行"></a>容器运行</h2><ol>
+<li><p>当CMD、Entrypoint和docker run命令行指定的命令运行结束时，容器停止。</p>
+</li>
+<li><p>通过 -d参数在后台启动容器。</p>
+</li>
+<li><p>通过exec -it可进入容器并执行命令。</p>
+</li>
+<li><p>指定容器的三种方法：</p>
+<ol>
+<li><p>短ID。</p>
+</li>
+<li><p>长ID。</p>
+</li>
+<li><p>容器名称。可通过 –name为容器命名。重命名容器可执行docker rename。</p>
+</li>
+</ol>
+</li>
+<li><p>容器按用途可分为两类：</p>
+<ol>
+<li>服务类的容器。</li>
+<li>工具类的容器。</li>
+</ol>
+<p>服务类容器以daemon的形式运行，对外提供服务，比如Web Server、数据库等。通过 -d以后台方式启动这类容器是非常合适的。如果要排查问题，可以通过exec -it进入容器。</p>
+<p>工具类容器通常能给我们提供一个临时的工作环境，通常以run -it方式运行，工具类容器多使用基础镜像，例如busybox、debian、ubuntu等。<span id="more"></span></p>
+</li>
+</ol>
+<h2 id="stop-start-restart容器"><a href="#stop-start-restart容器" class="headerlink" title="stop/start/restart容器"></a>stop/start/restart容器</h2><p>通过docker stop可以停止运行的容器，容器在docker host中实际上是一个进程，docker stop命令本质上是向该进程发送一个SIGTERM信号。如果想快速停止容器，可使用docker kill命令，其作用是向容器进程发送SIGKILL信号。</p>
+<p><img src="/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204600179.png"></p>
+<p>对于处于停止状态的容器，可以通过docker start重新启动，docker start会保留容器的第一次启动时的所有参数。</p>
+<p><img src="/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204630073.png"></p>
+<p>docker restart可以重启容器，其作用就是依次执行docker stop和docker start。</p>
+<p>容器可能会因某种错误而停止运行。对于服务类容器，我们通常希望在这种情况下容器能够自动重启。启动容器时设置 –restart就可以达到这个效果。</p>
+<p><img src="/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204656937.png"></p>
+<p>–restart=always意味着无论容器因何种原因退出（包括正常退出），都立即重启；该参数的形式还可以是 –restart=on-failure:3，意思是如果启动进程退出代码非0，则重启容器，最多重启3次。</p>
+<h2 id="pause-unpause容器"><a href="#pause-unpause容器" class="headerlink" title="pause / unpause容器"></a>pause / unpause容器</h2><p>有时我们只是希望让容器暂停工作一段时间，比如要对容器的文件系统打个快照，或者dcoker host需要使用CPU，这时可以执行docker pause。</p>
+<p><img src="/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204814446.png"></p>
+<p>处于暂停状态的容器不会占用CPU资源，直到通过docker unpause恢复运行。</p>
+<p><img src="/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224204844769.png"></p>
+<h2 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h2><p>docker rm一次可以指定多个容器，如果希望批量删除所有已经退出的容器，可以执行如下命令。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm -v $(docker ps -aq -f status=exited)</span><br></pre></td></tr></table></figure>
+
+<p>docker rm是删除容器，而docker rmi是删除镜像。</p>
+<h2 id="State-Machine"><a href="#State-Machine" class="headerlink" title="State Machine"></a>State Machine</h2><p>前面我们已经讨论了容器的各种操作，对容器的生命周期有了大致的理解，下面这张状态机很好地总结了容器各种状态之间是如何转换的，如图所示。</p>
+<p><img src="/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E5%AE%B9%E5%99%A8/image-20230224205525748.png"></p>
+<p>只有当容器的启动进程退出时，–restart才生效，退出包括正常退出或者非正常退出。这里举了两个例子：启动进程正常退出或发生OOM，此时Docker会根据 –restart的策略判断是否需要重启容器。但如果容器是因为执行docker stop或docker kill退出，则不会自动重启。</p>
+<h2 id="资源限制"><a href="#资源限制" class="headerlink" title="资源限制"></a>资源限制</h2><p>一个docker host上会运行若干容器，每个容器都需要CPU、内存和IO资源。对于KVM、VMware等虚拟化技术，用户可以控制分配多少CPU、内存资源给每个虚拟机。对于容器，Docker也提供了类似的机制避免某个容器因占用太多资源而影响其他容器乃至整个host的性能。</p>
+<h3 id="内存限额"><a href="#内存限额" class="headerlink" title="内存限额"></a>内存限额</h3><p>与操作系统类似，容器可使用的内存包括两部分：物理内存和swap。</p>
+<p>Docker通过下面两组参数来控制容器内存的使用量。</p>
+<p>（1）-m或 –memory：设置内存的使用限额，例如100MB,2GB。</p>
+<p>（2）–memory-swap：设置内存+swap的使用限额。</p>
+<p>当我们执行如下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -m 200M --memory-swap=300M ubuntu</span><br></pre></td></tr></table></figure>
+
+<p>其含义是允许该容器最多使用200MB的内存和100MB的swap。默认情况下，上面两组参数为 -1，即对容器内存和swap的使用没有限制。</p>
+<h3 id="CPU限额"><a href="#CPU限额" class="headerlink" title="CPU限额"></a>CPU限额</h3><p>默认设置下，所有容器可以平等地使用host CPU资源并且没有限制。</p>
+<p>Docker可以通过 -c或 –cpu-shares设置容器使用CPU的权重。如果不指定，默认值为1024。</p>
+<p>与内存限额不同，通过 -c设置的cpu share并不是CPU资源的绝对数量，而是一个相对的权重值。某个容器最终能分配到的CPU资源取决于它的cpu share占所有容器cpu share总和的比例。</p>
+<p>换句话说：通过cpu share可以设置容器使用CPU的优先级。</p>
+<h3 id="Block-IO带宽限额"><a href="#Block-IO带宽限额" class="headerlink" title="Block IO带宽限额"></a>Block IO带宽限额</h3><p>Block IO是另一种可以限制容器使用的资源。Block IO指的是磁盘的读写，docker可通过设置权重、限制bps和iops的方式控制容器读写磁盘的带宽，下面分别讨论。</p>
+<ol>
+<li><p>block IO权重</p>
+<p>默认情况下，所有容器能平等地读写磁盘，可以通过设置 –blkio-weight参数来改变容器block IO的优先级。</p>
+<p>–blkio-weight与 –cpu-shares类似，设置的是相对权重值，默认为500。</p>
+</li>
+<li><p>限制bps和iops</p>
+<p>bps是byte per second，每秒读写的数据量。iops是io per second，每秒IO的次数。</p>
+<p>可通过以下参数控制容器的bps和iops：</p>
+<p>● –device-read-bps：限制读某个设备的bps。</p>
+<p>● –device-write-bps：限制写某个设备的bps。</p>
+<p>● –device-read-iops：限制读某个设备的iops。</p>
+<p>● –device-write-iops：限制写某个设备的iops。</p>
+</li>
+</ol>
+<h2 id="实现容器的底层技术"><a href="#实现容器的底层技术" class="headerlink" title="实现容器的底层技术"></a>实现容器的底层技术</h2><p>cgroup和namespace是最重要的两种技术。cgroup实现资源限额，namespace实现资源隔离。</p>
+<h3 id="cgroup"><a href="#cgroup" class="headerlink" title="cgroup"></a>cgroup</h3><p>cgroup全称Control Group。Linux操作系统通过cgroup可以设置进程使用CPU、内存和IO资源的限额。相信你已经猜到了：前面我们看到的 –cpu-shares、-m、–device-write-bps实际上就是在配置cgroup。</p>
+<h3 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h3><p>在每个容器中，我们都可以看到文件系统、网卡等资源，这些资源看上去是容器自己的。拿网卡来说，每个容器都会认为自己有一块独立的网卡，即使host上只有一块物理网卡。这种方式非常好，它使得容器更像一个独立的计算机。</p>
+<p>Linux实现这种方式的技术是namespace。namespace管理着host中全局唯一的资源，并可以让每个容器都觉得只有自己在使用它。换句话说，namespace实现了容器间资源的隔离。Linux使用了6种namespace，分别对应6种资源：Mount、UTS、IPC、PID、Network和User，下面我们分别讨论。</p>
+<ol>
+<li><p>Mount namespace</p>
+<p>Mount namespace让容器看上去拥有整个文件系统。</p>
+<p>容器有自己的/目录，可以执行mount和umount命令。当然我们知道这些操作只在当前容器中生效，不会影响到host和其他容器。</p>
+</li>
+<li><p>UTS namespace</p>
+<p>简单地说，UTS namespace让容器有自己的hostname。默认情况下，容器的hostname是它的短ID，可以通过 -h或 –hostname参数设置。</p>
+</li>
+<li><p>IPC namespace</p>
+<p>IPC namespace让容器拥有自己的共享内存和信号量（semaphore）来实现进程间通信，而不会与host和其他容器的IPC混在一起。</p>
+</li>
+<li><p>PID namespace</p>
+<p>前面提到过，容器在host中以进程的形式运行。所有容器的进程都挂在dockerd进程下，同时也可以看到容器自己的子进程。如果我们进入到某个容器，ps就只能看到自己的进程了，而且进程的PID不同于host中对应进程的PID，容器中PID=1的进程当然也不是host的init进程。也就是说：容器拥有自己独立的一套PID，这就是PID namespace提供的功能。</p>
+</li>
+<li><p>Network namespace</p>
+<p>Network namespace让容器拥有自己独立的网卡、IP、路由等资源。</p>
+</li>
+<li><p>User namespace</p>
+<p>User namespace让容器能够管理自己的用户，host不能看到容器中创建的用户。</p>
+</li>
+</ol>
+<h2 id="容器的常用操作命令"><a href="#容器的常用操作命令" class="headerlink" title="容器的常用操作命令"></a>容器的常用操作命令</h2><p>create：创建容器；</p>
+<p>run：运行容器；</p>
+<p>pause：暂停容器；</p>
+<p>unpause：取消暂停继续运行容器；</p>
+<p>stop：发送SIGTERM停止容器；</p>
+<p>kill：发送SIGKILL快速停止容器；</p>
+<p>start：启动容器；</p>
+<p>restart：重启容器；</p>
+<p>attach:attach到容器启动进程的终端；</p>
+<p>exec：在容器中启动新进程，通常使用”-it”参数；</p>
+<p>logs：显示容器启动进程的控制台输出，用”-f”持续打印；</p>
+<p>rm：从磁盘中删除容器。</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Docker容器</p><p><a href="https://mrcq.github.io/2023/02/24/读书笔记/每天5分钟玩转Docker容器技术/Docker容器/">https://mrcq.github.io/2023/02/24/读书笔记/每天5分钟玩转Docker容器技术/Docker容器/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>作者</h6><p>Kurisu</p></div></div><div class="level-item is-narrow"><div><h6>发布于</h6><p>2023-02-24</p></div></div><div class="level-item is-narrow"><div><h6>更新于</h6><p>2023-02-24</p></div></div><div class="level-item is-narrow"><div><h6>许可协议</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><hr style="height:1px;margin:1rem 0"><div class="level is-mobile is-flex"><div class="article-tags is-size-7 is-uppercase"><i class="fas fa-tags has-text-grey"></i> <a class="link-muted" rel="tag" href="/tags/Docker/">Docker, </a><a class="link-muted" rel="tag" href="/tags/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/">每天5分钟玩转Docker容器技术 </a></div></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-start"><a class="article-nav-prev level level-item link-muted" href="/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E7%BD%91%E7%BB%9C/"><i class="level-item fas fa-chevron-left"></i><span class="level-item">Docker网络</span></a></div><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2023/02/24/%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/%E6%AF%8F%E5%A4%A95%E5%88%86%E9%92%9F%E7%8E%A9%E8%BD%ACDocker%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Docker%E9%95%9C%E5%83%8F/"><span class="level-item">Docker镜像</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><!--!--></div><div class="column column-left is-4-tablet is-4-desktop is-3-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar is-rounded" src="/img/avatar.png" alt="Kurisu"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">Kurisu</p><p class="is-size-6 is-block">水滴石穿，聚沙成塔</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>中国</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">文章</p><a href="/archives"><p class="title">68</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">分类</p><a href="/categories"><p class="title">16</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">标签</p><a href="/tags"><p class="title">29</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/mrcq" target="_blank" rel="noopener">关注我</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Github" href="https://github.com/mrcq"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Facebook" href="https://facebook.com"><i class="fab fa-facebook"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Twitter" href="https://twitter.com"><i class="fab fa-twitter"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="noopener" title="Dribbble" href="https://dribbble.com"><i class="fab fa-dribbble"></i></a></div></div></div><div class="card widget" id="toc" data-type="toc"><div class="card-content"><div class="menu"><h3 class="menu-label">目录</h3><ul class="menu-list"><li><a class="level is-mobile" href="#容器运行"><span class="level-left"><span class="level-item">1</span><span class="level-item">容器运行</span></span></a></li><li><a class="level is-mobile" href="#stop-start-restart容器"><span class="level-left"><span class="level-item">2</span><span class="level-item">stop/start/restart容器</span></span></a></li><li><a class="level is-mobile" href="#pause-unpause容器"><span class="level-left"><span class="level-item">3</span><span class="level-item">pause / unpause容器</span></span></a></li><li><a class="level is-mobile" href="#删除容器"><span class="level-left"><span class="level-item">4</span><span class="level-item">删除容器</span></span></a></li><li><a class="level is-mobile" href="#State-Machine"><span class="level-left"><span class="level-item">5</span><span class="level-item">State Machine</span></span></a></li><li><a class="level is-mobile" href="#资源限制"><span class="level-left"><span class="level-item">6</span><span class="level-item">资源限制</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#内存限额"><span class="level-left"><span class="level-item">6.1</span><span class="level-item">内存限额</span></span></a></li><li><a class="level is-mobile" href="#CPU限额"><span class="level-left"><span class="level-item">6.2</span><span class="level-item">CPU限额</span></span></a></li><li><a class="level is-mobile" href="#Block-IO带宽限额"><span class="level-left"><span class="level-item">6.3</span><span class="level-item">Block IO带宽限额</span></span></a></li></ul></li><li><a class="level is-mobile" href="#实现容器的底层技术"><span class="level-left"><span class="level-item">7</span><span class="level-item">实现容器的底层技术</span></span></a><ul class="menu-list"><li><a class="level is-mobile" href="#cgroup"><span class="level-left"><span class="level-item">7.1</span><span class="level-item">cgroup</span></span></a></li><li><a class="level is-mobile" href="#namespace"><span class="level-left"><span class="level-item">7.2</span><span class="level-item">namespace</span></span></a></li></ul></li><li><a class="level is-mobile" href="#容器的常用操作命令"><span class="level-left"><span class="level-item">8</span><span class="level-item">容器的常用操作命令</span></span></a></li></ul></div></div><style>#toc .menu-list > li > a.is-active + .menu-list { display: block; }#toc .menu-list > li > a + .menu-list { display: none; }</style><script src="/js/toc.js" defer></script></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="Kurisu&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2023 Kurisu</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a><br><span id="busuanzi_container_site_uv">共<span id="busuanzi_value_site_uv">0</span>个访客</span></p></div><div class="level-end"></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("zh-CN");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="回到顶端" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script src="/js/back_to_top.js" defer></script><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "此网站使用Cookie来改善您的体验。",
+          dismiss: "知道了！",
+          allow: "允许使用Cookie",
+          deny: "拒绝",
+          link: "了解更多",
+          policy: "Cookie政策",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="想要查找什么..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"想要查找什么...","untitled":"(无标题)","posts":"文章","pages":"页面","categories":"分类","tags":"标签"});
+        });</script></body></html>
